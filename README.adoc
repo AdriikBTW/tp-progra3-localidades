@@ -1,0 +1,35 @@
+= TP Programación III: Localidades
+Adrián Romero; Emiliano Carrasco; Lautaro Romero; Nahuel Lopez
+:revdate: {docdate}
+:revremark: COM-02
+:version-label!:
+:title-page:
+:title-logo-image: image::ungs.jpg[]
+
+== Lorem Ipsum
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel placerat
+ipsum, in gravida purus. Nunc odio arcu, consequat eu tincidunt quis, tristique
+dictum est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam mattis
+libero at aliquet pharetra. Etiam commodo sem sit amet ipsum pharetra, at
+ultricies eros facilisis. Sed at venenatis nunc. Sed vitae laoreet neque, et
+rutrum augue. Class aptent taciti sociosqu ad litora torquent per conubia
+nostra, per inceptos himenaeos. Cras tempor erat id neque ultricies porttitor.
+Duis non libero ullamcorper leo mollis hendrerit.
+
+Donec nisi turpis, interdum quis lorem vel, condimentum lacinia neque. Aliquam
+elit ex, gravida sed urna non, porta facilisis odio. Cras vel eros at augue
+efficitur consequat. Cras sem risus, iaculis eget facilisis sed, feugiat eu
+mauris. Nam dictum quis mi sit amet tempus. Sed a odio nunc. Quisque vitae
+posuere nisi. Phasellus ac sem tempor justo luctus blandit. Aliquam vestibulum,
+diam in dapibus tincidunt, massa nisl ornare nisi, nec eleifend sapien nulla
+nec ante.
+
+Nam finibus eros in sem feugiat cursus vitae sit amet dolor. Quisque non
+venenatis neque. Curabitur diam augue, auctor et bibendum nec, volutpat nec
+sem. Ut dapibus ex nec ipsum malesuada, ut cursus est tincidunt. Mauris
+eleifend iaculis augue, sed dignissim quam tincidunt a. Vivamus a laoreet ante,
+et dictum urna. Nam laoreet, elit at sollicitudin finibus, ante dui consectetur
+quam, et varius neque arcu nec ipsum. Donec in turpis erat. Aenean facilisis
+sit amet libero eget efficitur. Nullam ac nisi pulvinar, sollicitudin ligula
+et, porta erat.
