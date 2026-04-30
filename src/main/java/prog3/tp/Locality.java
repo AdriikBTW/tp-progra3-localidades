@@ -12,4 +12,5 @@ public class Locality {
 		this._latitude = latitude;
 		this._longitude = longitude;
 	}
+	
 }
