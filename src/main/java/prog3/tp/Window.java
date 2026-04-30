@@ -56,4 +56,8 @@ public class Window implements View, JMapViewerEventListener {
 
     @Override
     public void processCommand(JMVCommandEvent command) {}
+
+	@Override
+	public void setPresenter(Presenter p) {
+	}
 }
