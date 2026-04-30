@@ -6,18 +6,11 @@ import java.util.Map;
 import java.util.Set;
 
 public class LocalityRedServices {
-	private double _costPerKM;
-	private int _percentIncreaseCostPer300Km;
-	private double _costPerTwoStates;
 	private Locality[] _localities; // Vertex, add in view.
     private double[][] _matrix;
     private Map<Locality, Integer> _index;
 	
-	public LocalityRedServices (double costPerKm, int percentIncreaseCostPer300km, double costPerTwoStates, Locality[] localities) {
-		this._costPerKM = costPerKm;
-		this._percentIncreaseCostPer300Km = percentIncreaseCostPer300km;
-		this._costPerTwoStates = costPerTwoStates;
-		
+	public LocalityRedServices (Locality[] localities) {		
 	    int n = localities.length;
 
 	    this._localities = localities;
@@ -29,15 +22,23 @@ public class LocalityRedServices {
 	    }
 	}
 	
-	public void addEdge(Locality a, Locality b, double weight) {
+	public void addEdge(Locality a, Locality b, double costPerKm, int percentIncreaseCostPer300km, double costPerTwoStates) {
 		
 	    int i = getIndex(a);
 	    int j =	getIndex(b);
+	    
+	    double km = kmBetween2Localities(a, b);
+	    double cost =  calculateCost(costPerKm, percentIncreaseCostPer300km, costPerTwoStates, km);
 
-	    _matrix[i][j] = weight;
-	    _matrix[j][i] = weight;
+	    _matrix[i][j] = cost;
+	    _matrix[j][i] = cost;
 	}
 	
+	private double kmBetween2Localities(Locality a, Locality b) {
+		//ADD THE ALGORITH TO CALCULATE KM
+		return 0;
+	}
+
 	private int getIndex(Locality l) {
 	    Integer i = _index.get(l);
 
@@ -61,5 +62,10 @@ public class LocalityRedServices {
 	    }
 
 	    return result;
+	}
+	
+	public double calculateCost(double costPerKm, int percentIncreaseCostPer300km, double costPerTwoStates, double km) {
+		//ADD THE ALGORITH TO CALCULATE KM
+		return 0;	    
 	}
 }
