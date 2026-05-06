@@ -1,8 +1,7 @@
 package prog3.tp;
 
-
-public class Presenter	implements Observer {
-	private final Model _model;
+public class Presenter implements Observer {
+    private final Model _model;
     private final View _view;
 
     public Presenter(Model model, View view) {
@@ -13,7 +12,6 @@ public class Presenter	implements Observer {
         _model.addObserver(this);
     }
 
-	@Override
-	public void update() {
-	}
+    @Override
+    public void update() {}
 }

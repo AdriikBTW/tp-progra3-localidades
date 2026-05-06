@@ -6,66 +6,72 @@ import java.util.Map;
 import java.util.Set;
 
 public class LocalityRedServices {
-	private Locality[] _localities; // Vertex, add in view.
+    private Locality[] _localities; // Vertex, add in view.
     private double[][] _matrix;
     private Map<Locality, Integer> _index;
-	
-	public LocalityRedServices (Locality[] localities) {		
-	    int n = localities.length;
 
-	    this._localities = localities;
-	    this._matrix = new double[n][n];
-	    this._index = new HashMap<>();
+    public LocalityRedServices(Locality[] localities) {
+        int n = localities.length;
 
-	    for (int i = 0; i < n; i++) {
-	        _index.put(localities[i], i);
-	    }
-	}
-	
-	public void addEdge(Locality a, Locality b, double costPerKm, int percentIncreaseCostPer300km, double costPerTwoStates) {
-		
-	    int i = getIndex(a);
-	    int j =	getIndex(b);
-	    
-	    double km = kmBetween2Localities(a, b);
-	    double cost =  calculateCost(costPerKm, percentIncreaseCostPer300km, costPerTwoStates, km);
+        this._localities = localities;
+        this._matrix = new double[n][n];
+        this._index = new HashMap<>();
 
-	    _matrix[i][j] = cost;
-	    _matrix[j][i] = cost;
-	}
-	
-	private double kmBetween2Localities(Locality a, Locality b) {
-		//ADD THE ALGORITH TO CALCULATE KM
-		return 0;
-	}
+        for (int i = 0; i < n; i++) {
+            _index.put(localities[i], i);
+        }
+    }
 
-	private int getIndex(Locality l) {
-	    Integer i = _index.get(l);
+    public void addEdge(
+            Locality a,
+            Locality b,
+            double costPerKm,
+            int percentIncreaseCostPer300km,
+            double costPerTwoStates) {
 
-	    if (i == null) {
-	        throw new IllegalArgumentException("Locality not found: " + l);
-	    }
+        int i = getIndex(a);
+        int j = getIndex(b);
 
-	    return i;
-	}
-	
-	public Set<Locality> getNeighbors(Locality l) {
+        double km = kmBetween2Localities(a, b);
+        double cost = calculateCost(costPerKm, percentIncreaseCostPer300km, costPerTwoStates, km);
 
-	    int i = getIndex(l);
+        _matrix[i][j] = cost;
+        _matrix[j][i] = cost;
+    }
 
-	    Set<Locality> result = new HashSet<>();
+    private double kmBetween2Localities(Locality a, Locality b) {
+        // ADD THE ALGORITH TO CALCULATE KM
+        return 0;
+    }
 
-	    for (int j = 0; j < _matrix.length; j++) {
-	        if (_matrix[i][j] > 0) {
-	            result.add(_localities[j]);
-	        }
-	    }
+    private int getIndex(Locality l) {
+        Integer i = _index.get(l);
 
-	    return result;
-	}
-	
-	public double calculateCost(double costPerKm, int percentIncreaseCostPer300km, double costPerTwoStates, double km) {
-		//ADD THE ALGORITH TO CALCULATE KM
-		return 0;	    
-	}
+        if (i == null) {
+            throw new IllegalArgumentException("Locality not found: " + l);
+        }
+
+        return i;
+    }
+
+    public Set<Locality> getNeighbors(Locality l) {
+
+        int i = getIndex(l);
+
+        Set<Locality> result = new HashSet<>();
+
+        for (int j = 0; j < _matrix.length; j++) {
+            if (_matrix[i][j] > 0) {
+                result.add(_localities[j]);
+            }
+        }
+
+        return result;
+    }
+
+    public double calculateCost(
+            double costPerKm, int percentIncreaseCostPer300km, double costPerTwoStates, double km) {
+        // ADD THE ALGORITH TO CALCULATE KM
+        return 0;
+    }
 }

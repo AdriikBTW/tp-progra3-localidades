@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import javax.swing.UIManager;
@@ -75,11 +74,15 @@ public class Window implements View, JMapViewerEventListener {
         newLocalityButton.addActionListener(
                 new ActionListener() {
                     @Override
-                    public void actionPerformed(ActionEvent e)
-                    {
-                        JOptionPane.showOptionDialog(null, "Hello",
-                                "Hello message", JOptionPane.DEFAULT_OPTION,
-                                JOptionPane.INFORMATION_MESSAGE, null, null,
+                    public void actionPerformed(ActionEvent e) {
+                        JOptionPane.showOptionDialog(
+                                null,
+                                "Hello",
+                                "Hello message",
+                                JOptionPane.DEFAULT_OPTION,
+                                JOptionPane.INFORMATION_MESSAGE,
+                                null,
+                                null,
                                 null);
                     }
                 });
@@ -89,13 +92,16 @@ public class Window implements View, JMapViewerEventListener {
         helpButton.addActionListener(
                 new ActionListener() {
                     @Override
-                    public void actionPerformed(ActionEvent e)
-                    {
-                        JOptionPane.showOptionDialog(null,
+                    public void actionPerformed(ActionEvent e) {
+                        JOptionPane.showOptionDialog(
+                                null,
                                 "Use the right mouse to move the map,\n"
                                         + "use mouse wheel to zoom.",
-                                "Help window", JOptionPane.DEFAULT_OPTION,
-                                JOptionPane.INFORMATION_MESSAGE, null, null,
+                                "Help window",
+                                JOptionPane.DEFAULT_OPTION,
+                                JOptionPane.INFORMATION_MESSAGE,
+                                null,
+                                null,
                                 null);
                     }
                 });
@@ -111,7 +117,6 @@ public class Window implements View, JMapViewerEventListener {
     @Override
     public void processCommand(JMVCommandEvent command) {}
 
-	@Override
-	public void setPresenter(Presenter p) {
-	}
+    @Override
+    public void setPresenter(Presenter p) {}
 }
