@@ -12,10 +12,12 @@ import javax.swing.JToolBar;
 import javax.swing.UIManager;
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.JMapViewer;
+import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
 import org.openstreetmap.gui.jmapviewer.events.JMVCommandEvent;
 import org.openstreetmap.gui.jmapviewer.interfaces.JMapViewerEventListener;
 
 public class Window implements View, JMapViewerEventListener {
+    private static final int MAP_ZOOM_LEVEL = 10;
     private JMapViewer _map;
     private JFrame _frame;
     private JToolBar _toolbar;
@@ -60,8 +62,9 @@ public class Window implements View, JMapViewerEventListener {
     }
 
     private void setUpMap() {
+        Coordinate buenosAires = new Coordinate(-34.603889, -58.381389);
         _map = new JMapViewer();
-        _map.setDisplayPosition(new Coordinate(-34.603889, -58.381389), 10);
+        _map.setDisplayPosition(buenosAires, MAP_ZOOM_LEVEL);
     }
 
     private void setUpToolbar() {
@@ -75,15 +78,7 @@ public class Window implements View, JMapViewerEventListener {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        JOptionPane.showOptionDialog(
-                                null,
-                                "Hello",
-                                "Hello message",
-                                JOptionPane.DEFAULT_OPTION,
-                                JOptionPane.INFORMATION_MESSAGE,
-                                null,
-                                null,
-                                null);
+                        addNewLocality();
                     }
                 });
 
@@ -109,6 +104,17 @@ public class Window implements View, JMapViewerEventListener {
         _toolbar.add(newLocalityButton);
         _toolbar.addSeparator();
         _toolbar.add(helpButton);
+    }
+
+    private void addNewLocality() {
+        // NOTE: this method should call presenter to pass the data to the model
+        LocalityDialogPane dialog = new LocalityDialogPane();
+        Coordinate coord;
+
+        if (dialog.showDialog() == JOptionPane.OK_OPTION) {
+            coord = new Coordinate(dialog.getLatitude(), dialog.getLongitude());
+            _map.addMapMarker(new MapMarkerDot(dialog.getName(), coord));
+        }
     }
 
     @Override
