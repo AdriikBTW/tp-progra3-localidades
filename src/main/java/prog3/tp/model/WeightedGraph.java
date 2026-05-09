@@ -1,30 +1,38 @@
 package prog3.tp.model;
 
-class WeightedGraph extends Graph {
-    private double[][] weights;
+ class WeightedGraph extends Graph {
+	private double[][] weights;
+	
+	
+	  public WeightedGraph() {
+	        super();
+	        this.weights = new double[_DEFAULTSIZE][_DEFAULTSIZE];
+	  }
+	
+	public WeightedGraph(int vertices) {
+		super(vertices);
+		this.weights = new double[vertices][vertices];
+		
+	}
 
-    public WeightedGraph(int vertices) {
-        super(vertices);
-        this.weights = new double[vertices][vertices];
-    }
+	public boolean addEdge(int v1, int v2, double weight) {
+		boolean added = super.addEdge(v1, v2); // Validations
 
-    public boolean addEdge(int v1, int v2, double weight) {
-        boolean added = super.addEdge(v1, v2); // Validations
+	    if (!added) return false;
 
-        if (!added) return false;
+	    weights[v1][v2] = weight;
+	    weights[v2][v1] = weight;
 
-        weights[v1][v2] = weight;
-        weights[v2][v1] = weight;
-
-        return true;
-    }
-
-    public double getWeight(int v1, int v2) {
-        return weights[v1][v2];
-    }
-
-    @Override
-    public boolean edgeExists(int v1, int v2) {
-        return weights[v1][v2] > 0;
-    }
+	    return true;
+	}
+	
+	public double getWeight(int v1, int v2) {
+	    return weights[v1][v2];
+	}
+	
+	@Override
+	public boolean edgeExists(int v1, int v2) {
+	    return super.edgeExists(v1, v2);
+	}
+	
 }

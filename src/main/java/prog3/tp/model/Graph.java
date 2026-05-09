@@ -5,7 +5,7 @@ import java.util.Set;
 
 /** Undirected graph implementation using an adjacency matrix. */
 class Graph {
-    private static int _DEFAULTSIZE = 100;
+    protected static final int _DEFAULTSIZE = 100;
     private boolean[][] _matrix;
 
     /** Constructs a graph with a default capacity of 100 vertices. */

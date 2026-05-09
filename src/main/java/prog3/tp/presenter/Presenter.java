@@ -1,6 +1,7 @@
 package prog3.tp.presenter;
 
 import prog3.tp.model.Observer;
+import prog3.tp.model.Locality;
 import prog3.tp.model.Model;
 import prog3.tp.view.View;
 

@@ -1,77 +1,101 @@
 package prog3.tp.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-class LocalityRedServices {
-    private Locality[] _localities; // Vertex, add in view.
-    private double[][] _matrix;
-    private Map<Locality, Integer> _index;
+public class LocalityRedServices {
+	private final List<Locality> _localities; // Vertex, add in view.
+    private final Map<Locality, Integer> _index;
+    private final WeightedGraph _graph;	
+    
+	public LocalityRedServices () {		
+		
+	    this._localities = new ArrayList<>();
+	    this._index = new HashMap<>();
+	    this._graph = new WeightedGraph();
 
-    public LocalityRedServices(Locality[] localities) {
-        int n = localities.length;
+	}
+	
 
-        this._localities = localities;
-        this._matrix = new double[n][n];
-        this._index = new HashMap<>();
+	public void addEdge(Locality a, 
+						Locality b, 
+						double costPerKm, 
+						int percentIncreaseMoreThan300km, 
+						double costPerTwoStates) {
+	   
+		int i = getIndex(a); // Get locality num index to introduce in the matrix 
+	    int j =	getIndex(b);
+	    
+	    double km = kmBetween2Localities(a, b);
+	    double cost = 0;
+	    
+	    if(localitiesInOneState(a,b)) {
+	    	cost =  calculateCost(costPerKm, percentIncreaseMoreThan300km, 0 , km);
+	    } else cost = calculateCost(costPerKm, percentIncreaseMoreThan300km,costPerTwoStates,km);
+	    
+	    
+	    _graph.addEdge(i,j,cost);
+	}
+	
+	private boolean localitiesInOneState(Locality a, Locality b) {
+		return a.getState().equalsIgnoreCase(b.getState()); 
+	}
+	
 
-        for (int i = 0; i < n; i++) {
-            _index.put(localities[i], i);
-        }
-    }
+	private double kmBetween2Localities(Locality a, Locality b) {
+		return Vincenty.distance(a.getLatitude(), a.getLongitude(), b.getLatitude(), b.getLongitude());
+	}
 
-    public void addEdge(
-            Locality a,
-            Locality b,
-            double costPerKm,
-            int percentIncreaseCostPer300km,
-            double costPerTwoStates) {
+	private int getIndex(Locality l) {
+	    Integer i = _index.get(l);
 
-        int i = getIndex(a);
-        int j = getIndex(b);
+	    if (i == null) {
+	        throw new IllegalArgumentException("Locality not found: " + l);
+	    }
+	    return i;
+	}
 
-        double km = kmBetween2Localities(a, b);
-        double cost = calculateCost(costPerKm, percentIncreaseCostPer300km, costPerTwoStates, km);
+	public Set<Locality> getNeighbors(Locality locality) {
+	    int numIndexLocality = getIndex(locality);
 
-        _matrix[i][j] = cost;
-        _matrix[j][i] = cost;
-    }
-
-    private double kmBetween2Localities(Locality a, Locality b) {
-        // ADD THE ALGORITH TO CALCULATE KM
-        return 0;
-    }
-
-    private int getIndex(Locality l) {
-        Integer i = _index.get(l);
-
-        if (i == null) {
-            throw new IllegalArgumentException("Locality not found: " + l);
-        }
-
-        return i;
-    }
-
-    public Set<Locality> getNeighbors(Locality l) {
-
-        int i = getIndex(l);
-
+	    Set<Integer> neighbors = _graph.getNeighbors(numIndexLocality);
         Set<Locality> result = new HashSet<>();
 
-        for (int j = 0; j < _matrix.length; j++) {
-            if (_matrix[i][j] > 0) {
-                result.add(_localities[j]);
-            }
+        for (Integer numIndex : neighbors) {
+            result.add(_localities.get(numIndex));
         }
 
         return result;
     }
 
-    public double calculateCost(
-            double costPerKm, int percentIncreaseCostPer300km, double costPerTwoStates, double km) {
-        // ADD THE ALGORITH TO CALCULATE KM
-        return 0;
-    }
+	private double calculateCost(double costPerKm, int percentIncreaseMoreThan300km, double costPerTwoStates, double km) {
+		double cost = 0;
+		
+		if(km >300) {
+			cost =(costPerKm * km) * (1 + percentIncreaseMoreThan300km/ 100.0);
+		} else cost = (costPerKm * km);
+		
+		return cost + costPerTwoStates;
+	}
+	
+	public double getCost(Locality a, Locality b) {
+	     return _graph.getWeight(getIndex(a), getIndex(b));
+	}
+	
+	public void addLocality(Locality locality) {
+
+	    if (_index.containsKey(locality)) {
+	        return;
+	    }
+
+	    int index = _localities.size();
+
+	    _localities.add(locality);
+
+	    _index.put(locality, index);
+	}
 }

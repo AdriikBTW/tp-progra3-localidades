@@ -1,6 +1,6 @@
 package prog3.tp.model;
 
-class Locality {
+public class Locality {
     private String _name;
     private String _state;
     private double _latitude;
@@ -12,4 +12,17 @@ class Locality {
         this._latitude = latitude;
         this._longitude = longitude;
     }
+    
+    public String getName() {
+		return _name;
+	}
+	public String getState() {
+		return _state;
+	}
+	public double getLatitude() {
+		return _latitude;
+	}
+	public double getLongitude() {
+		return _longitude;
+	}
 }
