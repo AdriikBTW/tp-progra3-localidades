@@ -1,0 +1,51 @@
+Programación III - TP 2
+=======================
+
+Enunciado
+---------
+
+El objetivo del trabajo práctico es implementar una aplicación para planificar
+conexiones de fibra óptica entre localidades ubicadas en regiones despobladas.
+Dado un conjunto de localidades, se debe proporcionar un árbol generador mínimo
+entre ellas e informar el costo de la solución.
+
+La aplicación debe permitir al usuario registrar una serie de localidades,
+incluyendo el nombre, provincia, latitud y longitud de cada una. Además, se
+deben proporcionar los valores de los siguientes parámetros generales, que
+inciden en el cálculo del costo de cada conexión:
+
+* Costo en pesos por kilómetro de una conexión entre dos localidades.
+* Porcentaje de aumento del costo si la conexión tiene más de 300 km.
+* Costo fijo que se agrega si la conexión involucra localidades de dos
+  provincias distintas.
+
+Cuando el usuario solicita la planificación, se debe resolver el problema de
+árbol generador mínimo sobre el grafo completo dado por todas las localidades,
+y cuyas aristas tienen costos calculados de acuerdo con los ítems anteriores.
+Se debe presentar al usuario la solución, especificando las conexiones de fibra
+óptica a construir y el costo total de las instalaciones.
+
+Como objetivos opcionales no obligatorios, se pueden contemplar los siguientes
+elementos:
+
+1. Mostrar sobre un mapa las localidades y la solución obtenida.
+2. Guardar en archivos los datos de las localidades, de modo tal que se
+   preserven entre una ejecución de la aplicación y la siguiente.
+3. Permitir que el usuario modifique la solución, cambiando una conexión por
+   otra y mostrando el costo de esta modificación.
+
+Condiciones de entrega
+----------------------
+
+El trabajo práctico se debe entregar por mail a los docentes de la materia.
+Además del código, se debe incluir un documento en el que se describa la
+implementación y se detallen las decisiones tomadas durante el desarrollo. El
+código responsable del funcionamiento de la aplicación debe estar claramente
+separado del código responsable de la interfaz. Todas las clases de negocio
+deben tener tests unitarios. El trabajo práctico se debe hacer en grupos de
+tres o de cuatro personas.
+
+Fecha de entrega
+----------------
+
+Martes 12 de mayo.
