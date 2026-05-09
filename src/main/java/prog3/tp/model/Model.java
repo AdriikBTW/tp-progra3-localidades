@@ -1,4 +1,6 @@
-package prog3.tp;
+package prog3.tp.model;
+
+import prog3.tp.presenter.Presenter;
 
 public class Model {
 

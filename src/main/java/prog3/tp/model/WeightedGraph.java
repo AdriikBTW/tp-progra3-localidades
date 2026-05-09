@@ -1,4 +1,4 @@
-package prog3.tp;
+package prog3.tp.model;
 
 public class WeightedGraph extends Graph {
     private double[][] weights;

@@ -1,4 +1,6 @@
-package prog3.tp;
+package prog3.tp.view;
+
+import prog3.tp.presenter.Presenter;
 
 public interface View {
     public void updateView();

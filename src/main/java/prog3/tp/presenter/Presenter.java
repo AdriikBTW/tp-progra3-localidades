@@ -1,4 +1,8 @@
-package prog3.tp;
+package prog3.tp.presenter;
+
+import prog3.tp.model.Observer;
+import prog3.tp.model.Model;
+import prog3.tp.view.View;
 
 public class Presenter implements Observer {
     private final Model _model;

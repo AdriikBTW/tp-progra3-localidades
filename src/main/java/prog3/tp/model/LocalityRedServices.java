@@ -1,4 +1,4 @@
-package prog3.tp;
+package prog3.tp.model;
 
 import java.util.HashMap;
 import java.util.HashSet;

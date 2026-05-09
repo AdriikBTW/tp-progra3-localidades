@@ -1,4 +1,4 @@
-package prog3.tp;
+package prog3.tp.view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -15,6 +15,7 @@ import org.openstreetmap.gui.jmapviewer.JMapViewer;
 import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
 import org.openstreetmap.gui.jmapviewer.events.JMVCommandEvent;
 import org.openstreetmap.gui.jmapviewer.interfaces.JMapViewerEventListener;
+import prog3.tp.presenter.Presenter;
 
 public class Window implements View, JMapViewerEventListener {
     private static final int MAP_ZOOM_LEVEL = 10;

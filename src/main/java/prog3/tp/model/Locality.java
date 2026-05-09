@@ -1,4 +1,4 @@
-package prog3.tp;
+package prog3.tp.model;
 
 public class Locality {
     private String _name;

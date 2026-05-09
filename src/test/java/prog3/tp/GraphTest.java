@@ -1,6 +1,7 @@
 package prog3.tp;
 
 import static org.junit.Assert.*;
+import prog3.tp.model.Graph;
 
 import java.util.HashSet;
 import java.util.Set;

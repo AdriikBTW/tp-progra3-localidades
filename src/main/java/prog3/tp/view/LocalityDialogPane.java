@@ -1,4 +1,4 @@
-package prog3.tp;
+package prog3.tp.view;
 
 import java.awt.GridLayout;
 import javax.swing.JLabel;
