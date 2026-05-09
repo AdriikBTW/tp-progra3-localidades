@@ -1,6 +1,6 @@
 package prog3.tp.model;
 
-public class Locality {
+class Locality {
     private String _name;
     private String _state;
     private double _latitude;

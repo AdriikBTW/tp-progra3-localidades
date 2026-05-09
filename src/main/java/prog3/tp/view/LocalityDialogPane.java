@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class LocalityDialogPane extends JPanel {
+class LocalityDialogPane extends JPanel {
     private static final int ROW = 0;
     private static final int COL = 2;
     private static final int HGAP = 5;

@@ -17,7 +17,7 @@ import org.openstreetmap.gui.jmapviewer.events.JMVCommandEvent;
 import org.openstreetmap.gui.jmapviewer.interfaces.JMapViewerEventListener;
 import prog3.tp.presenter.Presenter;
 
-public class Window implements View, JMapViewerEventListener {
+class Window implements View, JMapViewerEventListener {
     private static final int MAP_ZOOM_LEVEL = 10;
     private JMapViewer _map;
     private JFrame _frame;

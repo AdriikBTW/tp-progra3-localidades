@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /** Undirected graph implementation using an adjacency matrix. */
-public class Graph {
+class Graph {
     private static int _DEFAULTSIZE = 100;
     private boolean[][] _matrix;
 

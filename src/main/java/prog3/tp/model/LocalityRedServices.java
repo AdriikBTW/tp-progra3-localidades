@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class LocalityRedServices {
+class LocalityRedServices {
     private Locality[] _localities; // Vertex, add in view.
     private double[][] _matrix;
     private Map<Locality, Integer> _index;
