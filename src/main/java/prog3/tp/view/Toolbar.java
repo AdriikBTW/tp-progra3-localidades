@@ -30,6 +30,7 @@ class Toolbar extends JToolBar {
 
     private void initLocalityButton() {
         _localityButton = new ToolbarButton("");
+        _localityButton.setToolTipText("Add new locality.");
         _localityButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -49,6 +50,7 @@ class Toolbar extends JToolBar {
 
     private void initConnectionsButton() {
         _connectionsButton = new ToolbarButton("󱕆");
+        _connectionsButton.setToolTipText("Generate connections for localities in the map.");
         _connectionsButton.addActionListener(
                 new ActionListener() {
                     @Override
@@ -69,6 +71,7 @@ class Toolbar extends JToolBar {
 
     private void initHelpButton() {
         _helpButton = new ToolbarButton("󰋖");
+        _helpButton.setToolTipText("Show usage help.");
         _helpButton.addActionListener(
                 new ActionListener() {
                     @Override
