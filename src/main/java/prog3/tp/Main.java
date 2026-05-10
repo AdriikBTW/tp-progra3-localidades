@@ -14,7 +14,7 @@ public class Main {
                             Window window = new Window();
                             window.setVisible(true);
                             new Presenter(new LocalityRedServices(),
-                                    new Window());
+                                    window);
                         } catch (Exception e) {
                             System.out.println(
                                     "Error initializing the system: " + e);
