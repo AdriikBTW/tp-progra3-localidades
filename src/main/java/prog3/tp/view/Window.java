@@ -17,11 +17,11 @@ import org.openstreetmap.gui.jmapviewer.events.JMVCommandEvent;
 import org.openstreetmap.gui.jmapviewer.interfaces.JMapViewerEventListener;
 import prog3.tp.presenter.Presenter;
 
-class Window implements View, JMapViewerEventListener {
+class Window implements View, JMapViewerEventListener, ToolbarListener {
     private static final int MAP_ZOOM_LEVEL = 10;
     private JMapViewer _map;
     private JFrame _frame;
-    private JToolBar _toolbar;
+    private Toolbar _toolbar;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(
@@ -69,75 +69,18 @@ class Window implements View, JMapViewerEventListener {
     }
 
     private void setUpToolbar() {
-        // NOTE: this is increasing in size, maybe it would be better to move it to a class?
-        _toolbar = new JToolBar();
-        _toolbar.setFloatable(false);
-
-        JButton newLocalityButton = new JButton("");
-        newLocalityButton.setFont(new Font("Sans-Serif", Font.PLAIN, 25));
-        newLocalityButton.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        addNewLocality();
-                    }
-                });
-
-        JButton genConnectionsButton = new JButton("󱕆");
-        genConnectionsButton.setFont(new Font("Sans-Serif", Font.PLAIN, 25));
-        genConnectionsButton.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        genConnections();
-                    }
-                });
-
-        JButton helpButton = new JButton("󰋖");
-        helpButton.setFont(new Font("Sans-Serif", Font.PLAIN, 25));
-        helpButton.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        JOptionPane.showOptionDialog(
-                                null,
-                                "Use the right mouse to move the map,\n"
-                                        + "use mouse wheel to zoom.",
-                                "Help window",
-                                JOptionPane.DEFAULT_OPTION,
-                                JOptionPane.INFORMATION_MESSAGE,
-                                null,
-                                null,
-                                null);
-                    }
-                });
-
-        _toolbar.add(newLocalityButton);
-        _toolbar.add(genConnectionsButton);
-        _toolbar.addSeparator();
-        _toolbar.add(helpButton);
+        _toolbar = new Toolbar(this);
     }
 
-    private void addNewLocality() {
-        // NOTE: this method should call presenter to pass the data to the model
-        LocalityDialogPane dialog = new LocalityDialogPane();
-        Coordinate coord;
-
-        if (dialog.showDialog() == JOptionPane.OK_OPTION) {
-            coord = new Coordinate(dialog.getLatitude(), dialog.getLongitude());
-            _map.addMapMarker(new MapMarkerDot(dialog.getName(), coord));
-        }
+    @Override
+    public void onLocalityAdded(String name, double latitude, double longitude) {
+        Coordinate coord = new Coordinate(latitude, longitude);
+        _map.addMapMarker(new MapMarkerDot(name, coord));
     }
 
-    private void genConnections() {
-        GenConnectionsPane dialog = new GenConnectionsPane();
-        if (dialog.showDialog() == JOptionPane.OK_OPTION) {
-            // NOTE: connect this to presenter, for now it prints to console to
-            // see that it works
-            System.out.println(dialog.getKilometerCost());
-            System.out.println(dialog.getPercentageCost());
-            System.out.println(dialog.getProvincesCost());
-        }
+    @Override
+    public void onConnectionsGenerated(double kilometerCost, double percentageCost, double provinceCost) {
+        // TODO: make all the presenter -> model stuff from here
     }
 
     @Override
