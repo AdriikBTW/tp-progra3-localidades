@@ -42,7 +42,8 @@ class Toolbar extends JToolBar {
         LocalityDialogPane dialog = new LocalityDialogPane();
 
         if (dialog.showDialog() == JOptionPane.OK_OPTION) {
-            _listener.onLocalityAdded(dialog.getName(), dialog.getLatitude(), dialog.getLongitude());
+            _listener.onLocalityAdded(dialog.getName(), dialog.getProvince(),
+                    dialog.getLatitude(), dialog.getLongitude());
         }
     }
 

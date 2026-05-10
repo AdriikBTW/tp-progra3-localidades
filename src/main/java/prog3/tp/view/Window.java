@@ -63,7 +63,7 @@ public class Window implements View, JMapViewerEventListener, ToolbarListener {
     }
 
     @Override
-    public void onLocalityAdded(String name, double latitude, double longitude) {
+    public void onLocalityAdded(String name, String province, double latitude, double longitude) {
         Coordinate coord = new Coordinate(latitude, longitude);
         _map.addMapMarker(new MapMarkerDot(name, coord));
     }
