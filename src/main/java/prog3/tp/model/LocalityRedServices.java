@@ -6,8 +6,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import prog3.tp.presenter.Presenter;
 
-public class LocalityRedServices {
+public class LocalityRedServices implements Model {
+    private Observer _observer;
 	private final List<Locality> _localities; // Vertex, add in view.
     private final Map<Locality, Integer> _index;
     private final WeightedGraph _graph;	
@@ -98,4 +100,9 @@ public class LocalityRedServices {
 
 	    _index.put(locality, index);
 	}
+
+    @Override
+    public void addObserver(Observer observer) {
+        _observer = observer;
+    }
 }

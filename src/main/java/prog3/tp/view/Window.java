@@ -15,6 +15,7 @@ import org.openstreetmap.gui.jmapviewer.JMapViewer;
 import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
 import org.openstreetmap.gui.jmapviewer.events.JMVCommandEvent;
 import org.openstreetmap.gui.jmapviewer.interfaces.JMapViewerEventListener;
+import prog3.tp.model.LocalityRedServices;
 import prog3.tp.presenter.Presenter;
 
 class Window implements View, JMapViewerEventListener, ToolbarListener {
@@ -30,6 +31,7 @@ class Window implements View, JMapViewerEventListener, ToolbarListener {
                         try {
                             Window window = new Window();
                             window._frame.setVisible(true);
+                            new Presenter(new LocalityRedServices(), window);
                         } catch (Exception e) {
                             System.out.println("Error displaying the theme: " + e);
                         }
