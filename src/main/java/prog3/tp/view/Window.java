@@ -83,6 +83,16 @@ class Window implements View, JMapViewerEventListener {
                     }
                 });
 
+        JButton genConnectionsButton = new JButton("󱕆");
+        genConnectionsButton.setFont(new Font("Sans-Serif", Font.PLAIN, 25));
+        genConnectionsButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        genConnections();
+                    }
+                });
+
         JButton helpButton = new JButton("󰋖");
         helpButton.setFont(new Font("Sans-Serif", Font.PLAIN, 25));
         helpButton.addActionListener(
@@ -103,6 +113,7 @@ class Window implements View, JMapViewerEventListener {
                 });
 
         _toolbar.add(newLocalityButton);
+        _toolbar.add(genConnectionsButton);
         _toolbar.addSeparator();
         _toolbar.add(helpButton);
     }
@@ -115,6 +126,17 @@ class Window implements View, JMapViewerEventListener {
         if (dialog.showDialog() == JOptionPane.OK_OPTION) {
             coord = new Coordinate(dialog.getLatitude(), dialog.getLongitude());
             _map.addMapMarker(new MapMarkerDot(dialog.getName(), coord));
+        }
+    }
+
+    private void genConnections() {
+        GenConnectionsPane dialog = new GenConnectionsPane();
+        if (dialog.showDialog() == JOptionPane.OK_OPTION) {
+            // NOTE: connect this to presenter, for now it prints to console to
+            // see that it works
+            System.out.println(dialog.getKilometerCost());
+            System.out.println(dialog.getPercentageCost());
+            System.out.println(dialog.getProvincesCost());
         }
     }
 
