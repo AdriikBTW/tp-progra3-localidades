@@ -1,6 +1,7 @@
 package prog3.tp.view;
 
 import java.awt.GridLayout;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -12,17 +13,22 @@ class LocalityDialogPane extends JPanel {
     private static final int HGAP = 5;
     private static final int VGAP = 5;
     private JTextField _nameField;
-    private JTextField _provinceField;
     private JTextField _latitudeField;
     private JTextField _longitudeField;
+    private JComboBox<String> _provinceField;
+    private String[] _provinces = {"Buenos Aires", "Catamarca", "Chaco",
+        "Chubut", "Córdoba", "Corrientes", "Entre Ríos", "Formosa", "Jujuy",
+        "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquén",
+        "Río Negro", "Salta", "San Juan", "San Luis", "Santa Cruz",
+        "Santa Fe", "Santiago del Estero", "Tierra del Fuego", "Tucumán"};
 
     public LocalityDialogPane() {
         super(new GridLayout(ROW, COL, HGAP, VGAP));
 
         _nameField = new JTextField();
-        _provinceField = new JTextField();
         _latitudeField = new JTextField();
         _longitudeField = new JTextField();
+        _provinceField = new JComboBox<>(_provinces);
 
         this.add(new JLabel("Name: "));
         this.add(_nameField);
@@ -50,7 +56,7 @@ class LocalityDialogPane extends JPanel {
     }
 
     public String getProvince() {
-        return _provinceField.getText();
+        return (String) _provinceField.getSelectedItem();
     }
 
     public double getLatitude() {
