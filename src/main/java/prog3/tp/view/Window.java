@@ -15,29 +15,13 @@ import org.openstreetmap.gui.jmapviewer.JMapViewer;
 import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
 import org.openstreetmap.gui.jmapviewer.events.JMVCommandEvent;
 import org.openstreetmap.gui.jmapviewer.interfaces.JMapViewerEventListener;
-import prog3.tp.model.LocalityRedServices;
 import prog3.tp.presenter.Presenter;
 
-class Window implements View, JMapViewerEventListener, ToolbarListener {
+public class Window implements View, JMapViewerEventListener, ToolbarListener {
     private static final int MAP_ZOOM_LEVEL = 10;
     private JMapViewer _map;
     private JFrame _frame;
     private Toolbar _toolbar;
-
-    public static void main(String[] args) {
-        EventQueue.invokeLater(
-                new Runnable() {
-                    public void run() {
-                        try {
-                            Window window = new Window();
-                            window._frame.setVisible(true);
-                            new Presenter(new LocalityRedServices(), window);
-                        } catch (Exception e) {
-                            System.out.println("Error displaying the theme: " + e);
-                        }
-                    }
-                });
-    }
 
     public Window() {
         try {
@@ -46,6 +30,10 @@ class Window implements View, JMapViewerEventListener, ToolbarListener {
             System.out.println("Error setting native look: " + e);
         }
         initialize();
+    }
+
+    public void setVisible(boolean visibility) {
+        _frame.setVisible(visibility);
     }
 
     private void initialize() {
