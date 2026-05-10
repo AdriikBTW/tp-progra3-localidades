@@ -99,6 +99,7 @@ public class LocalityRedServices implements Model {
 	    _localities.add(locality);
 
 	    _index.put(locality, index);
+        _observer.update(locality);
 	}
 
     @Override

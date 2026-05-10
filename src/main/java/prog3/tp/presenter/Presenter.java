@@ -17,6 +17,12 @@ public class Presenter implements Observer {
         _model.addObserver(this);
     }
 
+    public void addLocality(String name, String province, double latitude, double longitude) {
+        _model.addLocality(new Locality(name, province, latitude, longitude));
+    }
+
     @Override
-    public void update() {}
+    public void update(Locality locality) {
+        _view.updateView(locality.getName(), locality.getLatitude(), locality.getLongitude());
+    }
 }

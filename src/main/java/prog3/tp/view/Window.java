@@ -15,6 +15,7 @@ import org.openstreetmap.gui.jmapviewer.JMapViewer;
 import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
 import org.openstreetmap.gui.jmapviewer.events.JMVCommandEvent;
 import org.openstreetmap.gui.jmapviewer.interfaces.JMapViewerEventListener;
+import org.openstreetmap.gui.jmapviewer.interfaces.MapMarker;
 import prog3.tp.presenter.Presenter;
 
 public class Window implements View, JMapViewerEventListener, ToolbarListener {
@@ -65,8 +66,7 @@ public class Window implements View, JMapViewerEventListener, ToolbarListener {
 
     @Override
     public void onLocalityAdded(String name, String province, double latitude, double longitude) {
-        Coordinate coord = new Coordinate(latitude, longitude);
-        _map.addMapMarker(new MapMarkerDot(name, coord));
+        _presenter.addLocality(name, province, latitude, longitude);
     }
 
     @Override
@@ -75,7 +75,10 @@ public class Window implements View, JMapViewerEventListener, ToolbarListener {
     }
 
     @Override
-    public void updateView() {}
+    public void updateView(String name, double latitude, double longitude) {
+        Coordinate coord = new Coordinate(latitude, longitude);
+        _map.addMapMarker(new MapMarkerDot(name, coord));
+    }
 
     @Override
     public void processCommand(JMVCommandEvent command) {}
