@@ -22,6 +22,7 @@ public class Window implements View, JMapViewerEventListener, ToolbarListener {
     private JMapViewer _map;
     private JFrame _frame;
     private Toolbar _toolbar;
+    private Presenter _presenter;
 
     public Window() {
         try {
@@ -80,5 +81,7 @@ public class Window implements View, JMapViewerEventListener, ToolbarListener {
     public void processCommand(JMVCommandEvent command) {}
 
     @Override
-    public void setPresenter(Presenter p) {}
+    public void setPresenter(Presenter presenter) {
+        _presenter = presenter;
+    }
 }
