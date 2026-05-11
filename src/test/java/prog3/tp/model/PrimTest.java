@@ -23,7 +23,7 @@ public class PrimTest {
     @Test
     public void createMinimumSpanningTreeTest() {
 
-        WeightedGraph mst = Prim.mst(_graph);
+        WeightedGraph mst = Prim.mst(_graph, _graph.size());
 
         assertNotNull(mst);
     }
@@ -31,7 +31,7 @@ public class PrimTest {
     @Test
     public void minimumSpanningTreeContainsCorrectEdgesTest() {
 
-        WeightedGraph mst = Prim.mst(_graph);
+        WeightedGraph mst = Prim.mst(_graph, _graph.size());
 
         assertTrue(mst.edgeExists(2, 3));
         assertTrue(mst.edgeExists(0, 3));
@@ -41,7 +41,7 @@ public class PrimTest {
     @Test
     public void minimumSpanningTreeDoesNotContainIncorrectEdgesTest() {
 
-        WeightedGraph mst = Prim.mst(_graph);
+        WeightedGraph mst = Prim.mst(_graph, _graph.size());
 
         assertFalse(mst.edgeExists(0, 2));
         assertFalse(mst.edgeExists(1, 3));
@@ -50,7 +50,7 @@ public class PrimTest {
     @Test
     public void minimumSpanningTreeHasCorrectWeightsTest() {
 
-        WeightedGraph mst = Prim.mst(_graph);
+        WeightedGraph mst = Prim.mst(_graph, _graph.size());
 
         assertEquals(4, mst.getWeight(2, 3), 0.001);
         assertEquals(5, mst.getWeight(0, 3), 0.001);
@@ -60,7 +60,7 @@ public class PrimTest {
     @Test
     public void minimumSpanningTreeTotalCostTest() {
 
-        WeightedGraph mst = Prim.mst(_graph);
+        WeightedGraph mst = Prim.mst(_graph, _graph.size());
 
         double total =
                 mst.getWeight(2, 3)
@@ -77,7 +77,7 @@ public class PrimTest {
 
         disconnected.addEdge(0, 1, 10);
 
-        Prim.mst(disconnected);
+        Prim.mst(disconnected, disconnected.size());
     }
     
     @Test
@@ -97,7 +97,7 @@ public class PrimTest {
 
         printGraph(graph);
 
-        WeightedGraph mst = Prim.mst(graph);
+        WeightedGraph mst = Prim.mst(graph, graph.size());
 
         System.out.println("\n===== MINIMUM SPANNING TREE =====");
 

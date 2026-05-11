@@ -6,13 +6,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import prog3.tp.presenter.Presenter;
 
 public class LocalityRedServices implements Model {
     private Observer _observer;
 	private final List<Locality> _localities; // Vertex, add in view.
     private final Map<Locality, Integer> _index;
-    private final WeightedGraph _graph;	
+    private final WeightedGraph _graph;
+    private double _costPerKm;
+    private double _percentIncreaseMoreThan300km;
+    private double _costPerTwoStates;
     
 	public LocalityRedServices () {		
 		
@@ -22,25 +24,22 @@ public class LocalityRedServices implements Model {
 
 	}
 	
+	public void addEdge(Locality a, Locality b) {
 
-	public void addEdge(Locality a, 
-						Locality b, 
-						double costPerKm, 
-						int percentIncreaseMoreThan300km, 
-						double costPerTwoStates) {
-	   
-		int i = getIndex(a); // Get locality num index to introduce in the matrix 
-	    int j =	getIndex(b);
-	    
+	    int i = getIndex(a);
+	    int j = getIndex(b);
+
 	    double km = kmBetween2Localities(a, b);
-	    double cost = 0;
-	    
-	    if(localitiesInOneState(a,b)) {
-	    	cost =  calculateCost(costPerKm, percentIncreaseMoreThan300km, 0 , km);
-	    } else cost = calculateCost(costPerKm, percentIncreaseMoreThan300km,costPerTwoStates,km);
-	    
-	    
-	    _graph.addEdge(i,j,cost);
+
+	    double cost;
+
+	    if (localitiesInOneState(a, b)) {
+	        cost = calculateCost(km,0);
+	    } else {
+	        cost = calculateCost(km, this._costPerTwoStates);
+	    }
+
+	    _graph.addEdge(i, j, cost);
 	}
 	
 	private boolean localitiesInOneState(Locality a, Locality b) {
@@ -74,20 +73,21 @@ public class LocalityRedServices implements Model {
         return result;
     }
 
-	private double calculateCost(double costPerKm, int percentIncreaseMoreThan300km, double costPerTwoStates, double km) {
+	private double calculateCost(double km, double extraStateCost) {
 		double cost = 0;
 		
 		if(km >300) {
-			cost =(costPerKm * km) * (1 + percentIncreaseMoreThan300km/ 100.0);
-		} else cost = (costPerKm * km);
+			cost =(this._costPerKm * km) * (1 + this._percentIncreaseMoreThan300km/ 100.0);
+		} else cost = (this._costPerKm * km);
 		
-		return cost + costPerTwoStates;
+		return cost + extraStateCost;
 	}
 	
 	public double getCost(Locality a, Locality b) {
 	     return _graph.getWeight(getIndex(a), getIndex(b));
 	}
 	
+	@Override
 	public void addLocality(Locality locality) {
 
 	    if (_index.containsKey(locality)) {
@@ -99,13 +99,37 @@ public class LocalityRedServices implements Model {
 	    _localities.add(locality);
 
 	    _index.put(locality, index);
-        _observer.update(locality);
+        _observer.update(locality);	
 	}
 	
 	public WeightedGraph minimumSpanningTree() {
-	    return Prim.mst(_graph);
+	    return Prim.mst(_graph, localityCount());
 	}
+	
+	public void generateAllEdges() {
 
+		for (int i = 0; i < _localities.size(); i++) {
+			for (int j = i + 1; j < _localities.size(); j++) {
+				Locality a = _localities.get(i);
+				Locality b = _localities.get(j);
+				addEdge(a,b);
+			}
+		}
+	}
+	
+	
+	//The default size of graph is 100**2, this method return the real size of the graph 
+	public int localityCount() {
+	    return _localities.size();
+	}
+	
+	@Override
+	public void setCostConfig(double costPerKm, double percentIncreaseMoreThan300km, double costPerTwoStates) {
+
+		this._costPerKm = costPerKm;
+		this._percentIncreaseMoreThan300km = percentIncreaseMoreThan300km;
+		this._costPerTwoStates = costPerTwoStates;
+	}
     @Override
     public void addObserver(Observer observer) {
         _observer = observer;
