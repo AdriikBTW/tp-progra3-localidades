@@ -101,6 +101,10 @@ public class LocalityRedServices implements Model {
 	    _index.put(locality, index);
         _observer.update(locality);
 	}
+	
+	public WeightedGraph minimumSpanningTree() {
+	    return Prim.mst(_graph);
+	}
 
     @Override
     public void addObserver(Observer observer) {

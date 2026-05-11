@@ -32,7 +32,11 @@ class Graph {
      * @return true if the edge was added. false if it already exists or vertex are out of bounds.
      */
     public boolean addEdge(int v1, int v2) {
-        if (verticesAreEquals(v1, v2) || !vertexIsValid(v1) || !vertexIsValid(v2)) return false;
+        if (verticesAreEquals(v1, v2) 
+        	|| !vertexIsValid(v1) 
+        	|| !vertexIsValid(v2)
+        	|| edgeExists(v1, v2)) 
+        	return false;
 
         _matrix[v1][v2] = true;
         _matrix[v2][v1] = true;
