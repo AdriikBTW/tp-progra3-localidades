@@ -13,6 +13,7 @@ import javax.swing.UIManager;
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.JMapViewer;
 import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
+import org.openstreetmap.gui.jmapviewer.MapPolygonImpl;
 import org.openstreetmap.gui.jmapviewer.events.JMVCommandEvent;
 import org.openstreetmap.gui.jmapviewer.interfaces.JMapViewerEventListener;
 import org.openstreetmap.gui.jmapviewer.interfaces.MapMarker;
@@ -58,11 +59,23 @@ public class Window implements View, JMapViewerEventListener, ToolbarListener {
         Coordinate buenosAires = new Coordinate(-34.603889, -58.381389);
         _map = new JMapViewer();
         _map.setDisplayPosition(buenosAires, MAP_ZOOM_LEVEL);
+
+        // NOTE: for testing drawing a line, it should draw this in an update
+        // when it receives the msp
+        Coordinate joseCPaz = new Coordinate(-34.516667, -58.766667);
+        _map.addMapMarker(new MapMarkerDot("Buenos Aires", buenosAires));
+        _map.addMapMarker(new MapMarkerDot("José C. Paz", joseCPaz));
+        drawLineBetweenCoords(buenosAires, joseCPaz);
     }
 
     private void setUpToolbar() {
         _toolbar = new Toolbar(this);
     }
+
+    private void drawLineBetweenCoords(Coordinate coord1, Coordinate coord2) {
+        _map.addMapPolygon(new MapPolygonImpl(coord1, coord2, coord2));
+    }
+
 
     @Override
     public void onLocalityAdded(String name, String province, double latitude, double longitude) {
