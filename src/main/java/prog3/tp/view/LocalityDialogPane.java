@@ -5,6 +5,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
 class LocalityDialogPane extends JPanel {
@@ -13,8 +14,8 @@ class LocalityDialogPane extends JPanel {
     private static final int HGAP = 5;
     private static final int VGAP = 5;
     private JTextField _nameField;
-    private JTextField _latitudeField;
-    private JTextField _longitudeField;
+    private JSpinner _latitudeField;
+    private JSpinner _longitudeField;
     private JComboBox<String> _provinceField;
     private String[] _provinces = {"Buenos Aires", "Catamarca", "Chaco",
         "Chubut", "Córdoba", "Corrientes", "Entre Ríos", "Formosa", "Jujuy",
@@ -26,8 +27,8 @@ class LocalityDialogPane extends JPanel {
         super(new GridLayout(ROW, COL, HGAP, VGAP));
 
         _nameField = new JTextField();
-        _latitudeField = new JTextField();
-        _longitudeField = new JTextField();
+        _latitudeField = SpinnerCreation.createSpinner(0.0, -90.0, 90.0, 5.0);
+        _longitudeField = SpinnerCreation.createSpinner(0.0, -180.0, 180.0, 5.0);
         _provinceField = new JComboBox<>(_provinces);
 
         this.add(new JLabel("Nombre: "));
@@ -41,47 +42,12 @@ class LocalityDialogPane extends JPanel {
     }
 
     public int showDialog() {
-        while (true) {
-            int result = JOptionPane.showConfirmDialog(
-                    null,
-                    this,
-                    "New locality",
-                    JOptionPane.OK_CANCEL_OPTION,
-                    JOptionPane.PLAIN_MESSAGE);
-
-            if (result != JOptionPane.OK_OPTION) {
-                return result;
-            }
-
-            String latitudeText = _latitudeField.getText().trim();
-            String longitudeText = _longitudeField.getText().trim();
-
-            if (latitudeText.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "La latitud no puede estar vacía.", "Error", JOptionPane.ERROR_MESSAGE);
-                continue;
-            }
-
-            try {
-                Double.parseDouble(latitudeText);
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "La latitud debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
-                continue;
-            }
-
-            if (longitudeText.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "La longitud no puede estar vacía.", "Error", JOptionPane.ERROR_MESSAGE);
-                continue;
-            }
-
-            try {
-                Double.parseDouble(longitudeText);
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "La longitud debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
-                continue;
-            }
-
-            return result;
-        }
+        return JOptionPane.showConfirmDialog(
+                null,
+                this,
+                "New locality",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE);
     }
 
     public String getName() {
@@ -93,10 +59,10 @@ class LocalityDialogPane extends JPanel {
     }
 
     public double getLatitude() {
-        return Double.parseDouble(_latitudeField.getText());
+        return (double) _latitudeField.getValue();
     }
 
     public double getLongitude() {
-        return Double.parseDouble(_longitudeField.getText());
+        return (double) _latitudeField.getValue();
     }
 }
