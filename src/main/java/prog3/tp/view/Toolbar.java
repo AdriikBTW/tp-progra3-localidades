@@ -1,6 +1,5 @@
 package prog3.tp.view;
 
-import javax.swing.Box;
 import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import java.awt.event.ActionListener;
@@ -32,12 +31,11 @@ class Toolbar extends JToolBar {
 
         this.add(_localityButton);
         this.add(_connectionsButton);
+        this.add(_costButton);
         this.addSeparator();
         this.add(_deleteAllLocalities);
         this.addSeparator();
         this.add(_helpButton);
-        this.add(Box.createHorizontalGlue());
-        this.add(_costButton);
     }
 
     void setFontForButtons(Font font) {
