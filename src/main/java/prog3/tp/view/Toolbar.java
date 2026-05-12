@@ -102,8 +102,7 @@ class Toolbar extends JToolBar {
     
     private void initStartButton() { 
     	 _costButton = new ToolbarButton("$");
-         _costButton.setToolTipText("Show the total cost");
-         double cost = 0;
+         _costButton.setToolTipText("Muestra el precio total del costo");
          _costButton.addActionListener(
                  new ActionListener() {
                      @Override
@@ -118,7 +117,7 @@ class Toolbar extends JToolBar {
 		String formattedCost = df.format(_costMessage);
         JOptionPane.showOptionDialog(
                 null,
-                "The total amount you need to build is,\n"
+                "El precio total del costo es:\n"
                         + formattedCost,
                 "Cost window",
                 JOptionPane.DEFAULT_OPTION,

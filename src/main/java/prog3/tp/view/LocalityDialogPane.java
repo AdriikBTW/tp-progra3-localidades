@@ -30,23 +30,58 @@ class LocalityDialogPane extends JPanel {
         _longitudeField = new JTextField();
         _provinceField = new JComboBox<>(_provinces);
 
-        this.add(new JLabel("Name: "));
+        this.add(new JLabel("Nombre: "));
         this.add(_nameField);
-        this.add(new JLabel("Province: "));
+        this.add(new JLabel("Provincia: "));
         this.add(_provinceField);
-        this.add(new JLabel("Latitude: "));
+        this.add(new JLabel("Latitud: "));
         this.add(_latitudeField);
-        this.add(new JLabel("Longitude: "));
+        this.add(new JLabel("Longitud: "));
         this.add(_longitudeField);
     }
 
     public int showDialog() {
-        return JOptionPane.showConfirmDialog(
-                null,
-                this,
-                "New locality",
-                JOptionPane.OK_CANCEL_OPTION,
-                JOptionPane.PLAIN_MESSAGE);
+        while (true) {
+            int result = JOptionPane.showConfirmDialog(
+                    null,
+                    this,
+                    "New locality",
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.PLAIN_MESSAGE);
+
+            if (result != JOptionPane.OK_OPTION) {
+                return result;
+            }
+
+            String latitudeText = _latitudeField.getText().trim();
+            String longitudeText = _longitudeField.getText().trim();
+
+            if (latitudeText.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "La latitud no puede estar vacía.", "Error", JOptionPane.ERROR_MESSAGE);
+                continue;
+            }
+
+            try {
+                Double.parseDouble(latitudeText);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "La latitud debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                continue;
+            }
+
+            if (longitudeText.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "La longitud no puede estar vacía.", "Error", JOptionPane.ERROR_MESSAGE);
+                continue;
+            }
+
+            try {
+                Double.parseDouble(longitudeText);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "La longitud debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                continue;
+            }
+
+            return result;
+        }
     }
 
     // TODO: handle limits for latitude and longitude
