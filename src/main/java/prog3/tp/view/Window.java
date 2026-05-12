@@ -1,6 +1,9 @@
 package prog3.tp.view;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +24,7 @@ public class Window implements View, ToolbarListener {
     private Toolbar _toolbar;
     private Presenter _presenter;
     private boolean _localityWasAdded = false;
+    private Font _font;
 
     public Window() {
         try {
@@ -28,8 +32,22 @@ public class Window implements View, ToolbarListener {
         } catch (Exception e) {
             System.out.println("Error setting native look: " + e);
         }
+        loadFont();
         initialize();
     }
+
+    private void loadFont() {
+        try {
+            InputStream is = getClass().getResourceAsStream("/fonts/jetbrains.ttf");
+            _font = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(20f);
+
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(_font);
+        } catch (Exception e) {
+            _font = new Font("SansSerif", Font.PLAIN, 14);
+        }
+    }
+
 
     public void setVisible(boolean visibility) {
         _frame.setVisible(visibility);
@@ -60,6 +78,7 @@ public class Window implements View, ToolbarListener {
 
     private void setUpToolbar() {
         _toolbar = new Toolbar(this);
+        _toolbar.setFontForButtons(_font);
     }
 
     private void drawLineBetweenCoords(Coordinate coord1, Coordinate coord2) {

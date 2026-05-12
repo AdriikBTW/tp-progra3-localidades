@@ -4,6 +4,7 @@ import javax.swing.Box;
 import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import java.awt.event.ActionListener;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;
 
@@ -37,6 +38,14 @@ class Toolbar extends JToolBar {
         this.add(_helpButton);
         this.add(Box.createHorizontalGlue());
         this.add(_costButton);
+    }
+
+    void setFontForButtons(Font font) {
+        _localityButton.setFont(font);
+        _connectionsButton.setFont(font);
+        _deleteAllLocalities.setFont(font);
+        _helpButton.setFont(font);
+        _costButton.setFont(font);
     }
 
 	private void initLocalityButton() {
@@ -154,4 +163,5 @@ class Toolbar extends JToolBar {
     public void setCostMessage(double cost) {
     	this._costMessage = cost;
     }
+
 }
