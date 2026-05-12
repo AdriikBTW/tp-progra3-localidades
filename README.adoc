@@ -6,30 +6,66 @@ Adrián Romero; Emiliano Carrasco; Lautaro Romero; Nahuel Lopez
 :title-page:
 :title-logo-image: image::ungs.jpg[]
 
-== Lorem Ipsum
+== Diseño
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel placerat
-ipsum, in gravida purus. Nunc odio arcu, consequat eu tincidunt quis, tristique
-dictum est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam mattis
-libero at aliquet pharetra. Etiam commodo sem sit amet ipsum pharetra, at
-ultricies eros facilisis. Sed at venenatis nunc. Sed vitae laoreet neque, et
-rutrum augue. Class aptent taciti sociosqu ad litora torquent per conubia
-nostra, per inceptos himenaeos. Cras tempor erat id neque ultricies porttitor.
-Duis non libero ullamcorper leo mollis hendrerit.
+En este TP volvimos a utilizar MVP (Model-View-Presenter) para construir la 
+interfaz gráfica de usuario (GUI).
 
-Donec nisi turpis, interdum quis lorem vel, condimentum lacinia neque. Aliquam
-elit ex, gravida sed urna non, porta facilisis odio. Cras vel eros at augue
-efficitur consequat. Cras sem risus, iaculis eget facilisis sed, feugiat eu
-mauris. Nam dictum quis mi sit amet tempus. Sed a odio nunc. Quisque vitae
-posuere nisi. Phasellus ac sem tempor justo luctus blandit. Aliquam vestibulum,
-diam in dapibus tincidunt, massa nisl ornare nisi, nec eleifend sapien nulla
-nec ante.
+Comparado con el proyecto anterior, esta vez hemos decidido separar aún más las
+clases. Primero separamos cada módulo en sus propios paquetes para que quede 
+claro la división de cada módulo. A su vez, cada módulo se separa en diferentes 
+clases con responsabilidades correspondientes y así evitar clases sobrecargadas.
 
-Nam finibus eros in sem feugiat cursus vitae sit amet dolor. Quisque non
-venenatis neque. Curabitur diam augue, auctor et bibendum nec, volutpat nec
-sem. Ut dapibus ex nec ipsum malesuada, ut cursus est tincidunt. Mauris
-eleifend iaculis augue, sed dignissim quam tincidunt a. Vivamus a laoreet ante,
-et dictum urna. Nam laoreet, elit at sollicitudin finibus, ante dui consectetur
-quam, et varius neque arcu nec ipsum. Donec in turpis erat. Aenean facilisis
-sit amet libero eget efficitur. Nullam ac nisi pulvinar, sollicitudin ligula
-et, porta erat.
+Para la GUI utilizamos JMapViewer para visualizar un mapa y ver en pantalla las 
+localidades añadidas y las conexiones de estas.
+
+Añadimos un toolbar con las acciones disponibles para manipular el mapa:
+
+* *Añadir localidad*: permite añadir nuevas localidades y las marcas en pantalla.
+* *Generar conexiones*: genera un AGM entre todas las localidades y lo dibuja en 
+  el mapa.
+* *Borrar todo*: permite eliminar todas las marcas y el AGM dibujado, reiniciando 
+  el estado del programa.
+* *Mostrar costo total*: luego de generar las conexiones, permite visualizar 
+  el monto mínimo necesario para realizar las conexiones.
+* *Mostrar ayuda*: muestra los controles del mapa.
+
+Para seleccionar las provincias al momento de añadir las localidades, se utilizó
+`JComboBox` para poder seleccionar un ítem dentro de una lista específica. 
+Para los datos númericos, se utilizó `JSpinner` para forzar al usuario que 
+introduzca valores númericos dentro de un rango válido.
+
+En el `Model`, la clase principal `LocalityRedServices` está conformada por una 
+lista de `Locality` por un grafo ponderado de la clase `WeightedGraph`. Además,
+esta clase utiliza el objeto `Prim` para hallar el AGM.
+
+Y para hallar la distancia entre dos localidades se decidió utilizar `Vincenty`.
+
+En general, se intentó mantener los métodos más cortos posibles, y que hagan la 
+menor cantidad de funcionalidades posibles.
+
+== Dificultades
+
+La primera dificultad que tuvimos fue la creación de tests. Al no estar
+familiarizados en metodologías de tests, no fue la mejor forma de plantear el 
+problema para ser testeado.
+
+Otra dificultad fue la separación en clases. Al querer separar en diferentes 
+objetos, se tiene que plantear como es la comunicación entre los objetos, y la 
+representación lógica de cada uno.
+
+Unas de las dificultades en el modelo fue la implementación del grafo debido a 
+que los nodos son enteros. Y tuvimos que transformar las localidades en enteros
+utilizando un `HashMap` llamado `index`.
+
+== Cosas a mejorar
+
+A pesar de cumplir la mayoría de cosas, aún quedaron pendientes la implementación
+de la serialización y deserialización, para poder guardar el estado del programa 
+en un archivo y poder restaurar este estado posteriormente.
+
+Quedó pendiente la funcionalidad de poder borrar una localidad específica, o 
+conectar localidades manualmente.
+
+Por último, faltó una mayor organización y puesta en común sobre como abordar 
+el proyecto y que decisiones de diseño tomar.
