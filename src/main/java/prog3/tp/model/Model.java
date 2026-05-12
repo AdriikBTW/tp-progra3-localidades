@@ -13,4 +13,5 @@ public interface Model {
 	public int lenghtMST();
 	public List<Coordinate[]> getMSTCoordinates();
 	public double getCostMST();
+    public void clear();
 }

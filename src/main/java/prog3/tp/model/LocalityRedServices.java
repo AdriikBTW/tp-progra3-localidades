@@ -203,4 +203,12 @@ public class LocalityRedServices implements Model, Serializable {
 
 		return totalCost;
 	}
+
+    @Override
+    public void clear() {
+        _localities.clear();
+        _index.clear();
+        _graph.clear();
+        _mst = null;
+    }
 }

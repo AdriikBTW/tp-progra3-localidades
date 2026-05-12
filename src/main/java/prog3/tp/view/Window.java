@@ -92,7 +92,17 @@ public class Window implements View, ToolbarListener {
                 "You need to add at least one locality first.", "Error",
                 JOptionPane.ERROR_MESSAGE);
     }
-    
+
+    @Override
+    public void onAllLocalitiesDeleted() {
+        _presenter.clear();
+        _localityWasAdded = false;
+        _toolbar.setCostMessage(0);
+        deleteEdges();
+        _map.removeAllMapMarkers();
+        _map.repaint();
+    }
+
     private void deleteEdges() {
     	    for (MapPolygonImpl edge : _edges) {
     	        _map.removeMapPolygon(edge);

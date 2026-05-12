@@ -51,4 +51,8 @@ public class Presenter implements Observer {
 	public double getCostMST() {
 		return _model.getCostMST();
 	}
+
+    public void clear() {
+        _model.clear();
+    }
 }

@@ -10,6 +10,7 @@ import java.text.DecimalFormat;
 class Toolbar extends JToolBar {
     private ToolbarButton _localityButton;
     private ToolbarButton _connectionsButton;
+    private ToolbarButton _deleteAllLocalities;
     private ToolbarButton _helpButton;
     private ToolbarButton _costButton;
     private ToolbarListener _listener;
@@ -24,11 +25,14 @@ class Toolbar extends JToolBar {
     private void initButtons() {
         initLocalityButton();
         initConnectionsButton();
+        initDeleteAllLocalities();
         initHelpButton();
         initStartButton();
 
         this.add(_localityButton);
         this.add(_connectionsButton);
+        this.addSeparator();
+        this.add(_deleteAllLocalities);
         this.addSeparator();
         this.add(_helpButton);
         this.add(Box.createHorizontalGlue());
@@ -73,6 +77,26 @@ class Toolbar extends JToolBar {
         if (dialog.showDialog() == JOptionPane.OK_OPTION) {
             _listener.onConnectionsGenerated(dialog.getKilometerCost(), dialog.getPercentageCost(), dialog.getProvincesCost());
         }
+    }
+
+    private void initDeleteAllLocalities() {
+        _deleteAllLocalities = new ToolbarButton("󰆴");
+        _deleteAllLocalities.setToolTipText("Delete all marks in the map.");
+        _deleteAllLocalities.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        showDeleteAllConfirmation();
+                    }
+                });
+    }
+
+    private void showDeleteAllConfirmation() {
+        int res = JOptionPane.showOptionDialog(null,
+                "Do you want to delete all marks in the map?", "Delete all",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+                null, null);
+        if (res == JOptionPane.OK_OPTION) _listener.onAllLocalitiesDeleted();
     }
 
     private void initHelpButton() {
