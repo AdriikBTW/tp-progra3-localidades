@@ -1,18 +1,11 @@
 package prog3.tp.view;
 
-import java.awt.GridLayout;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
-class LocalityDialogPane extends JPanel {
-    private static final int ROW = 0;
-    private static final int COL = 2;
-    private static final int HGAP = 5;
-    private static final int VGAP = 5;
+class LocalityDialogPane extends ToolbarDialogPane {
     private JTextField _nameField;
     private JSpinner _latitudeField;
     private JSpinner _longitudeField;
@@ -24,13 +17,22 @@ class LocalityDialogPane extends JPanel {
         "Santa Fe", "Santiago del Estero", "Tierra del Fuego", "Tucumán"};
 
     public LocalityDialogPane() {
-        super(new GridLayout(ROW, COL, HGAP, VGAP));
+        super("New locality");
 
+        initComponents();
+        addComponents();
+    }
+
+    @Override
+    void initComponents() {
         _nameField = new JTextField();
         _latitudeField = SpinnerCreation.createSpinner(0.0, -90.0, 90.0, 5.0);
         _longitudeField = SpinnerCreation.createSpinner(0.0, -180.0, 180.0, 5.0);
         _provinceField = new JComboBox<>(_provinces);
+    }
 
+    @Override
+    void addComponents() {
         this.add(new JLabel("Nombre: "));
         this.add(_nameField);
         this.add(new JLabel("Provincia: "));
@@ -39,15 +41,6 @@ class LocalityDialogPane extends JPanel {
         this.add(_latitudeField);
         this.add(new JLabel("Longitud: "));
         this.add(_longitudeField);
-    }
-
-    public int showDialog() {
-        return JOptionPane.showConfirmDialog(
-                null,
-                this,
-                "New locality",
-                JOptionPane.OK_CANCEL_OPTION,
-                JOptionPane.PLAIN_MESSAGE);
     }
 
     public String getName() {
