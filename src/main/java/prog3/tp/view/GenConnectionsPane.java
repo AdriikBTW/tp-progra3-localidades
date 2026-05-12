@@ -48,44 +48,48 @@ class GenConnectionsPane extends JPanel {
             String provinceCostText = _differentProvincesCost.getText().trim();
 
             if (kmCostText.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "El costo por kilómetro no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+                showErrorDialog("El costo por kilómetro no puede estar vacío.");
                 continue;
             }
 
             if (percentCostText.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "El incremento porcentual no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+                showErrorDialog("El incremento porcentual no puede estar vacío.");
                 continue;
             }
 
             if (provinceCostText.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "El costo entre provincias no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+                showErrorDialog("El costo entre provincias no puede estar vacío.");
                 continue;
             }
 
             try {
                 double kmCost = Double.parseDouble(kmCostText);
                 if (kmCost < 0) {
-                    JOptionPane.showMessageDialog(null, "El costo por kilómetro no puede ser negativo.", "Error", JOptionPane.ERROR_MESSAGE);
+                    showErrorDialog("El costo por kilómetro no puede ser negativo.");
                     continue;
                 }
 
                 double percentCost = Double.parseDouble(percentCostText);
                 if (percentCost < 0) {
-                    JOptionPane.showMessageDialog(null, "El incremento porcentual no puede ser negativo.", "Error", JOptionPane.ERROR_MESSAGE);
+                    showErrorDialog("El incremento porcentual no puede ser negativo.");
                     continue;
                 }
 
                 double provinceCost = Double.parseDouble(provinceCostText);
                 if (provinceCost < 0) {
-                    JOptionPane.showMessageDialog(null, "El costo entre provincias no puede ser negativo.", "Error", JOptionPane.ERROR_MESSAGE);
+                    showErrorDialog("El costo entre provincias no puede ser negativo.");
                     continue;
                 }
 
                 return result;
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Los valores deben ser numéricos válidos.", "Error", JOptionPane.ERROR_MESSAGE);
+                showErrorDialog("Los valores deben ser numéricos válidos.");
             }
         }
+    }
+
+    private void showErrorDialog(String message) {
+        JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     public double getKilometerCost() {
