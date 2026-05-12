@@ -63,6 +63,6 @@ class LocalityDialogPane extends JPanel {
     }
 
     public double getLongitude() {
-        return (double) _latitudeField.getValue();
+        return (double) _longitudeField.getValue();
     }
 }
