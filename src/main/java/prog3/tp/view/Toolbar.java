@@ -133,7 +133,7 @@ class Toolbar extends JToolBar {
     
     private void initStartButton() { 
     	 _costButton = new ToolbarButton("$");
-         _costButton.setToolTipText("Muestra el precio total del costo");
+         _costButton.setToolTipText("Shows the total price of the cost");
          _costButton.addActionListener(
                  new ActionListener() {
                      @Override
