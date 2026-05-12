@@ -32,7 +32,6 @@ public class Presenter implements Observer {
     }
 
 	public void configCosts(double kilometerCost, double percentageCost, double provinceCost) {
-		// TODO Auto-generated method stub
 		_model.setCostConfig(kilometerCost,percentageCost, provinceCost);
 	}
 

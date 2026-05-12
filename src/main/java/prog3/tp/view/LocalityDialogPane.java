@@ -84,8 +84,6 @@ class LocalityDialogPane extends JPanel {
         }
     }
 
-    // TODO: handle limits for latitude and longitude
-
     public String getName() {
         return _nameField.getText();
     }

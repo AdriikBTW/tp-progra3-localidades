@@ -84,7 +84,6 @@ public class Window implements View, JMapViewerEventListener, ToolbarListener {
 
     @Override
     public void onConnectionsGenerated(double kilometerCost, double percentageCost, double provinceCost) {
-        // TODO: make all the presenter -> model stuff from here
     	_presenter.connectionGenerate(kilometerCost, percentageCost,provinceCost);
     	double cost = _presenter.getCostMST();
     	this._toolbar.setCostMessage(cost);
