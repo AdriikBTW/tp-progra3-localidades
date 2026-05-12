@@ -1,9 +1,14 @@
-package prog3.tp.model;
+	package prog3.tp.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Locality {
-    private String _name;
+public class Locality implements Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String _name;
     private String _state;
     private double _latitude;
     private double _longitude;

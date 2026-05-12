@@ -1,6 +1,11 @@
 package prog3.tp.presenter;
 
 import prog3.tp.model.Observer;
+
+import java.util.List;
+
+import org.openstreetmap.gui.jmapviewer.Coordinate;
+
 import prog3.tp.model.Locality;
 import prog3.tp.model.Model;
 import prog3.tp.view.View;
@@ -29,5 +34,18 @@ public class Presenter implements Observer {
 	public void configCosts(double kilometerCost, double percentageCost, double provinceCost) {
 		// TODO Auto-generated method stub
 		_model.setCostConfig(kilometerCost,percentageCost, provinceCost);
+	}
+
+	public void connectLocalities() {
+		_model.generateMST();
+		
+	}
+
+	public void connectionGenerate(double kilometerCost, double percentageCost, double provinceCost) {
+		this.configCosts(kilometerCost, percentageCost, provinceCost);
+		this.connectLocalities();
+		// Should the presenter import jmapviewer.coordinate?
+		List<Coordinate[]> edges = _model.getMSTCoordinates();
+		_view.drawEdges(edges);
 	}
 }

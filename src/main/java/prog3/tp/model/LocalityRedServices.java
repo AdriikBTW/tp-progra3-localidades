@@ -1,5 +1,6 @@
 package prog3.tp.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,11 +8,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class LocalityRedServices implements Model {
-    private Observer _observer;
+import org.openstreetmap.gui.jmapviewer.Coordinate;
+
+public class LocalityRedServices implements Model, Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Observer _observer;
 	private final List<Locality> _localities; // Vertex, add in view.
     private final Map<Locality, Integer> _index;
     private final WeightedGraph _graph;
+    private WeightedGraph _mst;
     private double _costPerKm;
     private double _percentIncreaseMoreThan300km;
     private double _costPerTwoStates;
@@ -106,6 +114,7 @@ public class LocalityRedServices implements Model {
 	    return Prim.mst(_graph, localityCount());
 	}
 	
+	@Override
 	public void generateAllEdges() {
 
 		for (int i = 0; i < _localities.size(); i++) {
@@ -130,6 +139,44 @@ public class LocalityRedServices implements Model {
 		this._percentIncreaseMoreThan300km = percentIncreaseMoreThan300km;
 		this._costPerTwoStates = costPerTwoStates;
 	}
+	
+	@Override
+	public void generateMST() {
+		 this.generateAllEdges();
+		 this._mst = this.minimumSpanningTree();
+	}
+	
+	public int lenghtMST() {
+		return this._mst.size();
+	}
+	
+	@Override
+	public List<Coordinate[]> getMSTCoordinates() {
+
+	    List<Coordinate[]> edges = new ArrayList<>();
+
+	    if (_mst == null) return edges;
+
+	    for (int i = 0; i < this.localityCount(); i++) {
+	        Set<Integer> neighbors = _mst.getNeighbors(i);
+
+	        Locality a = _localities.get(i);
+
+	        for (Integer j : neighbors) {
+	            if (j > i) {
+	                Locality b = _localities.get(j);
+
+	                Coordinate c1 = new Coordinate(a.getLatitude(), a.getLongitude());
+	                Coordinate c2 = new Coordinate(b.getLatitude(), b.getLongitude());
+
+	                edges.add(new Coordinate[]{c1, c2});
+	            }
+	        }
+	    }
+
+	    return edges;
+	}
+	
     @Override
     public void addObserver(Observer observer) {
         _observer = observer;

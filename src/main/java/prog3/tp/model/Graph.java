@@ -1,11 +1,16 @@
 package prog3.tp.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 /** Undirected graph implementation using an adjacency matrix. */
-class Graph {
-    protected static final int _DEFAULTSIZE = 100;
+class Graph implements Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	protected static final int _DEFAULTSIZE = 100;
     private boolean[][] _matrix;
 
     /** Constructs a graph with a default capacity of 100 vertices. */

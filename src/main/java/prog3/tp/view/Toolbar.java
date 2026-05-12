@@ -71,7 +71,6 @@ class Toolbar extends JToolBar {
         if (dialog.showDialog() == JOptionPane.OK_OPTION) {
             _listener.onConnectionsGenerated(dialog.getKilometerCost(), dialog.getPercentageCost(), dialog.getProvincesCost());
         }
-
     }
 
     private void initHelpButton() {
@@ -100,8 +99,8 @@ class Toolbar extends JToolBar {
    }
     
     private void initStartButton() {
-    	 _startButton = new ToolbarButton("✓");
-         _startButton.setToolTipText("Show in the map the localities connections and the cost");
+    	 _startButton = new ToolbarButton("X");
+         _startButton.setToolTipText("Delete a locality");
          _startButton.addActionListener(
                  new ActionListener() {
                      @Override

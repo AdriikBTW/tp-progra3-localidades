@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -21,6 +24,7 @@ import prog3.tp.presenter.Presenter;
 
 public class Window implements View, JMapViewerEventListener, ToolbarListener {
     private static final int MAP_ZOOM_LEVEL = 10;
+    private final List<MapPolygonImpl> _edges = new ArrayList<>();
     private JMapViewer _map;
     private JFrame _frame;
     private Toolbar _toolbar;
@@ -59,13 +63,7 @@ public class Window implements View, JMapViewerEventListener, ToolbarListener {
         Coordinate buenosAires = new Coordinate(-34.603889, -58.381389);
         _map = new JMapViewer();
         _map.setDisplayPosition(buenosAires, MAP_ZOOM_LEVEL);
-
-        // NOTE: for testing drawing a line, it should draw this in an update
-        // when it receives the msp
-        Coordinate joseCPaz = new Coordinate(-34.516667, -58.766667);
-        _map.addMapMarker(new MapMarkerDot("Buenos Aires", buenosAires));
-        _map.addMapMarker(new MapMarkerDot("José C. Paz", joseCPaz));
-        drawLineBetweenCoords(buenosAires, joseCPaz);
+        
     }
 
     private void setUpToolbar() {
@@ -73,7 +71,9 @@ public class Window implements View, JMapViewerEventListener, ToolbarListener {
     }
 
     private void drawLineBetweenCoords(Coordinate coord1, Coordinate coord2) {
-        _map.addMapPolygon(new MapPolygonImpl(coord1, coord2, coord2));
+    	MapPolygonImpl line = new MapPolygonImpl(coord1, coord2, coord2);
+    	_map.addMapPolygon(line);
+        _edges.add(line);
     }
 
 
@@ -85,9 +85,24 @@ public class Window implements View, JMapViewerEventListener, ToolbarListener {
     @Override
     public void onConnectionsGenerated(double kilometerCost, double percentageCost, double provinceCost) {
         // TODO: make all the presenter -> model stuff from here
-    	_presenter.configCosts(kilometerCost, percentageCost,provinceCost);
+    	_presenter.connectionGenerate(kilometerCost, percentageCost,provinceCost);
     }
+    
+    private void deleteEdges() {
+    	    for (MapPolygonImpl edge : _edges) {
+    	        _map.removeMapPolygon(edge);
+    	    }
+    	    _edges.clear();
+	}
 
+	@Override
+    public void drawEdges(List<Coordinate[]> edges){	
+		deleteEdges();
+		
+    	for (Coordinate[] edge : edges) {
+    	    drawLineBetweenCoords(edge[0], edge[1]);	
+    	}
+    }
     @Override
     public void updateView(String name, double latitude, double longitude) {
         Coordinate coord = new Coordinate(latitude, longitude);
