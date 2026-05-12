@@ -1,28 +1,18 @@
 package prog3.tp.view;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JToolBar;
 import javax.swing.UIManager;
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.JMapViewer;
 import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
 import org.openstreetmap.gui.jmapviewer.MapPolygonImpl;
-import org.openstreetmap.gui.jmapviewer.events.JMVCommandEvent;
-import org.openstreetmap.gui.jmapviewer.interfaces.JMapViewerEventListener;
-import org.openstreetmap.gui.jmapviewer.interfaces.MapMarker;
 import prog3.tp.presenter.Presenter;
 
-public class Window implements View, JMapViewerEventListener, ToolbarListener {
+public class Window implements View, ToolbarListener {
     private static final int MAP_ZOOM_LEVEL = 10;
     private final List<MapPolygonImpl> _edges = new ArrayList<>();
     private JMapViewer _map;
@@ -109,9 +99,6 @@ public class Window implements View, JMapViewerEventListener, ToolbarListener {
         Coordinate coord = new Coordinate(latitude, longitude);
         _map.addMapMarker(new MapMarkerDot(name, coord));
     }
-
-    @Override
-    public void processCommand(JMVCommandEvent command) {}
 
     @Override
     public void setPresenter(Presenter presenter) {
