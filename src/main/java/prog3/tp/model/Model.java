@@ -12,4 +12,5 @@ public interface Model {
 	public void generateMST();
 	public int lenghtMST();
 	public List<Coordinate[]> getMSTCoordinates();
+	public double getCostMST();
 }

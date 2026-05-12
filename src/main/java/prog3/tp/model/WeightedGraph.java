@@ -16,9 +16,12 @@ package prog3.tp.model;
 	}
 
 	public boolean addEdge(int v1, int v2, double weight) {
-		boolean added = super.addEdge(v1, v2); // Validations
+		boolean alreadyExists = edgeExists(v1, v2);
 
-	    if (!added) return false;
+		if (!alreadyExists) {
+			boolean added = super.addEdge(v1, v2);
+			if (!added) return false;
+		}
 
 	    weights[v1][v2] = weight;
 	    weights[v2][v1] = weight;
@@ -34,5 +37,14 @@ package prog3.tp.model;
 	public boolean edgeExists(int v1, int v2) {
 	    return super.edgeExists(v1, v2);
 	}
-	
+
+	public void clear() {
+		super.clear();
+		for (int i = 0; i < weights.length; i++) {
+			for (int j = 0; j < weights.length; j++) {
+				weights[i][j] = 0.0;
+			}
+		}
+	}
+
 }

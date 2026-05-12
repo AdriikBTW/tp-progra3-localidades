@@ -116,6 +116,7 @@ public class LocalityRedServices implements Model, Serializable {
 	
 	@Override
 	public void generateAllEdges() {
+		_graph.clear();
 
 		for (int i = 0; i < _localities.size(); i++) {
 			for (int j = i + 1; j < _localities.size(); j++) {
@@ -176,9 +177,30 @@ public class LocalityRedServices implements Model, Serializable {
 
 	    return edges;
 	}
+
 	
     @Override
     public void addObserver(Observer observer) {
         _observer = observer;
     }
+
+	@Override
+	public double getCostMST() {
+		double totalCost = 0.0;
+
+		if (_mst == null) {
+			return totalCost;
+		}
+
+		for (int i = 0; i < _mst.size(); i++) {
+			Set<Integer> neighbors = _mst.getNeighbors(i);
+			for (Integer j : neighbors) {
+				if (j > i) {
+					totalCost += _mst.getWeight(i, j);
+				}
+			}
+		}
+
+		return totalCost;
+	}
 }

@@ -126,4 +126,12 @@ class Graph implements Serializable {
     private boolean verticesAreEquals(int v1, int v2) {
         return v1 == v2;
     }
+
+    public void clear() {
+        for (int i = 0; i < _matrix.length; i++) {
+            for (int j = 0; j < _matrix.length; j++) {
+                _matrix[i][j] = false;
+            }
+        }
+    }
 }

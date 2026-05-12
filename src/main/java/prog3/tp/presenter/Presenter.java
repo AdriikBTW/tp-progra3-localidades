@@ -48,4 +48,8 @@ public class Presenter implements Observer {
 		List<Coordinate[]> edges = _model.getMSTCoordinates();
 		_view.drawEdges(edges);
 	}
+
+	public double getCostMST() {
+		return _model.getCostMST();
+	}
 }

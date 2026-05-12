@@ -5,13 +5,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.text.DecimalFormat;
 
 class Toolbar extends JToolBar {
     private ToolbarButton _localityButton;
     private ToolbarButton _connectionsButton;
     private ToolbarButton _helpButton;
-    private ToolbarButton _startButton;
+    private ToolbarButton _costButton;
     private ToolbarListener _listener;
+    private double _costMessage;
 
     public Toolbar(ToolbarListener listener) {
         _listener = listener;
@@ -30,7 +32,7 @@ class Toolbar extends JToolBar {
         this.addSeparator();
         this.add(_helpButton);
         this.add(Box.createHorizontalGlue());
-        this.add(_startButton);
+        this.add(_costButton);
     }
 
 	private void initLocalityButton() {
@@ -98,15 +100,35 @@ class Toolbar extends JToolBar {
                 null);
    }
     
-    private void initStartButton() {
-    	 _startButton = new ToolbarButton("X");
-         _startButton.setToolTipText("Delete a locality");
-         _startButton.addActionListener(
+    private void initStartButton() { 
+    	 _costButton = new ToolbarButton("$");
+         _costButton.setToolTipText("Show the total cost");
+         double cost = 0;
+         _costButton.addActionListener(
                  new ActionListener() {
                      @Override
                      public void actionPerformed(ActionEvent e) {
-                         //need create the start method to connect all the localities and show the cost.
+                         showCost();
                      }
                  });
 	}
+    
+    private void showCost() {
+		DecimalFormat df = new DecimalFormat("$#,##0.000");
+		String formattedCost = df.format(_costMessage);
+        JOptionPane.showOptionDialog(
+                null,
+                "The total amount you need to build is,\n"
+                        + formattedCost,
+                "Cost window",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                null,
+                null);
+   }
+    
+    public void setCostMessage(double cost) {
+    	this._costMessage = cost;
+    }
 }
