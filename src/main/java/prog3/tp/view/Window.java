@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.JMapViewer;
@@ -76,11 +77,20 @@ public class Window implements View, ToolbarListener {
 
     @Override
     public void onConnectionsGenerated(double kilometerCost, double percentageCost, double provinceCost) {
-        if (!_localityWasAdded) return;
+        if (!_localityWasAdded) {
+            showNoConnectionsMessage();
+            return;
+        }
 
     	_presenter.connectionGenerate(kilometerCost, percentageCost,provinceCost);
     	double cost = _presenter.getCostMST();
     	this._toolbar.setCostMessage(cost);
+    }
+
+    private void showNoConnectionsMessage() {
+        JOptionPane.showMessageDialog(null,
+                "You need to add at least one locality first.", "Error",
+                JOptionPane.ERROR_MESSAGE);
     }
     
     private void deleteEdges() {
