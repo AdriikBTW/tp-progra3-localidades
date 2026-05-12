@@ -19,6 +19,7 @@ public class Window implements View, ToolbarListener {
     private JFrame _frame;
     private Toolbar _toolbar;
     private Presenter _presenter;
+    private boolean _localityWasAdded = false;
 
     public Window() {
         try {
@@ -70,10 +71,13 @@ public class Window implements View, ToolbarListener {
     @Override
     public void onLocalityAdded(String name, String province, double latitude, double longitude) {
         _presenter.addLocality(name, province, latitude, longitude);
+        _localityWasAdded = true;
     }
 
     @Override
     public void onConnectionsGenerated(double kilometerCost, double percentageCost, double provinceCost) {
+        if (!_localityWasAdded) return;
+
     	_presenter.connectionGenerate(kilometerCost, percentageCost,provinceCost);
     	double cost = _presenter.getCostMST();
     	this._toolbar.setCostMessage(cost);
