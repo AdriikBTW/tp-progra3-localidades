@@ -1,13 +1,10 @@
 package prog3.tp.presenter;
 
-import prog3.tp.model.Observer;
-
 import java.util.List;
-
 import org.openstreetmap.gui.jmapviewer.Coordinate;
-
 import prog3.tp.model.Locality;
 import prog3.tp.model.Model;
+import prog3.tp.model.Observer;
 import prog3.tp.view.View;
 
 public class Presenter implements Observer {
@@ -31,26 +28,26 @@ public class Presenter implements Observer {
         _view.updateView(locality.getName(), locality.getLatitude(), locality.getLongitude());
     }
 
-	public void configCosts(double kilometerCost, double percentageCost, double provinceCost) {
-		_model.setCostConfig(kilometerCost,percentageCost, provinceCost);
-	}
+    public void configCosts(double kilometerCost, double percentageCost, double provinceCost) {
+        _model.setCostConfig(kilometerCost, percentageCost, provinceCost);
+    }
 
-	public void connectLocalities() {
-		_model.generateMST();
-		
-	}
+    public void connectLocalities() {
+        _model.generateMST();
+    }
 
-	public void connectionGenerate(double kilometerCost, double percentageCost, double provinceCost) {
-		this.configCosts(kilometerCost, percentageCost, provinceCost);
-		this.connectLocalities();
-		// Should the presenter import jmapviewer.coordinate?
-		List<Coordinate[]> edges = _model.getMSTCoordinates();
-		_view.drawEdges(edges);
-	}
+    public void connectionGenerate(
+            double kilometerCost, double percentageCost, double provinceCost) {
+        this.configCosts(kilometerCost, percentageCost, provinceCost);
+        this.connectLocalities();
+        // Should the presenter import jmapviewer.coordinate?
+        List<Coordinate[]> edges = _model.getMSTCoordinates();
+        _view.drawEdges(edges);
+    }
 
-	public double getCostMST() {
-		return _model.getCostMST();
-	}
+    public double getCostMST() {
+        return _model.getCostMST();
+    }
 
     public void clear() {
         _model.clear();

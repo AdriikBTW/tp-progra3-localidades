@@ -6,11 +6,10 @@ import java.util.Set;
 
 /** Undirected graph implementation using an adjacency matrix. */
 class Graph implements Serializable {
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	protected static final int _DEFAULTSIZE = 100;
+    /** */
+    private static final long serialVersionUID = 1L;
+
+    protected static final int _DEFAULTSIZE = 100;
     private boolean[][] _matrix;
 
     /** Constructs a graph with a default capacity of 100 vertices. */
@@ -37,11 +36,10 @@ class Graph implements Serializable {
      * @return true if the edge was added. false if it already exists or vertex are out of bounds.
      */
     public boolean addEdge(int v1, int v2) {
-        if (verticesAreEquals(v1, v2) 
-        	|| !vertexIsValid(v1) 
-        	|| !vertexIsValid(v2)
-        	|| edgeExists(v1, v2)) 
-        	return false;
+        if (verticesAreEquals(v1, v2)
+                || !vertexIsValid(v1)
+                || !vertexIsValid(v2)
+                || edgeExists(v1, v2)) return false;
 
         _matrix[v1][v2] = true;
         _matrix[v2][v1] = true;

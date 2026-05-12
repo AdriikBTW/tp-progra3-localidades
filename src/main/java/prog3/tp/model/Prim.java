@@ -1,53 +1,53 @@
 package prog3.tp.model;
 
 public class Prim {
-	 public static WeightedGraph mst(WeightedGraph graph, int verticesCount) {
-		 
-	        WeightedGraph mst = new WeightedGraph(verticesCount);
+    public static WeightedGraph mst(WeightedGraph graph, int verticesCount) {
 
-	        boolean[] visited = new boolean[verticesCount];
+        WeightedGraph mst = new WeightedGraph(verticesCount);
 
-	        visited[0] = true;
+        boolean[] visited = new boolean[verticesCount];
 
-	        int edgesAdded = 0;
+        visited[0] = true;
 
-	        while (edgesAdded < verticesCount - 1) {
+        int edgesAdded = 0;
 
-	            double minWeight = Double.MAX_VALUE;
+        while (edgesAdded < verticesCount - 1) {
 
-	            int from = -1;
-	            int to = -1;
+            double minWeight = Double.MAX_VALUE;
 
-	            for (int i = 0; i < verticesCount; i++) {
+            int from = -1;
+            int to = -1;
 
-	                if (!visited[i]) continue;
-	                for (int j = 0; j < verticesCount; j++) {
+            for (int i = 0; i < verticesCount; i++) {
 
-	                    if (visited[j]) continue;
+                if (!visited[i]) continue;
+                for (int j = 0; j < verticesCount; j++) {
 
-	                    if (!graph.edgeExists(i, j)) continue;
+                    if (visited[j]) continue;
 
-	                    double weight = graph.getWeight(i, j);
+                    if (!graph.edgeExists(i, j)) continue;
 
-	                    if (weight < minWeight) {
-	                        minWeight = weight;
-	                        from = i;
-	                        to = j;
-	                    }
-	                }
-	            }
+                    double weight = graph.getWeight(i, j);
 
-	            if (from == -1 || to == -1) {
-	                throw new IllegalStateException("Graph is disconnected");
-	            }
+                    if (weight < minWeight) {
+                        minWeight = weight;
+                        from = i;
+                        to = j;
+                    }
+                }
+            }
 
-	            mst.addEdge(from, to, minWeight);
+            if (from == -1 || to == -1) {
+                throw new IllegalStateException("Graph is disconnected");
+            }
 
-	            visited[to] = true;
+            mst.addEdge(from, to, minWeight);
 
-	            edgesAdded++;
-	        }
+            visited[to] = true;
 
-	        return mst;
-	    }
+            edgesAdded++;
+        }
+
+        return mst;
+    }
 }

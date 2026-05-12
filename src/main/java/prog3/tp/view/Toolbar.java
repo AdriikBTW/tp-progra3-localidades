@@ -1,11 +1,11 @@
 package prog3.tp.view;
 
-import javax.swing.JOptionPane;
-import javax.swing.JToolBar;
-import java.awt.event.ActionListener;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
+import javax.swing.JOptionPane;
+import javax.swing.JToolBar;
 
 class Toolbar extends JToolBar {
     private ToolbarButton _localityButton;
@@ -46,23 +46,27 @@ class Toolbar extends JToolBar {
         _costButton.setFont(font);
     }
 
-	private void initLocalityButton() {
+    private void initLocalityButton() {
         _localityButton = new ToolbarButton("");
         _localityButton.setToolTipText("Add new locality.");
-        _localityButton.addActionListener(new ActionListener() {
+        _localityButton.addActionListener(
+                new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         addNewLocality();
                     }
-        });
+                });
     }
 
     private void addNewLocality() {
         LocalityDialogPane dialog = new LocalityDialogPane();
 
         if (dialog.showDialog() == JOptionPane.OK_OPTION) {
-            _listener.onLocalityAdded(dialog.getName(), dialog.getProvince(),
-                    dialog.getLatitude(), dialog.getLongitude());
+            _listener.onLocalityAdded(
+                    dialog.getName(),
+                    dialog.getProvince(),
+                    dialog.getLatitude(),
+                    dialog.getLongitude());
         }
     }
 
@@ -82,7 +86,10 @@ class Toolbar extends JToolBar {
         GenConnectionsPane dialog = new GenConnectionsPane();
 
         if (dialog.showDialog() == JOptionPane.OK_OPTION) {
-            _listener.onConnectionsGenerated(dialog.getKilometerCost(), dialog.getPercentageCost(), dialog.getProvincesCost());
+            _listener.onConnectionsGenerated(
+                    dialog.getKilometerCost(),
+                    dialog.getPercentageCost(),
+                    dialog.getProvincesCost());
         }
     }
 
@@ -99,10 +106,16 @@ class Toolbar extends JToolBar {
     }
 
     private void showDeleteAllConfirmation() {
-        int res = JOptionPane.showOptionDialog(null,
-                "Do you want to delete all marks in the map?", "Delete all",
-                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null,
-                null, null);
+        int res =
+                JOptionPane.showOptionDialog(
+                        null,
+                        "Do you want to delete all marks in the map?",
+                        "Delete all",
+                        JOptionPane.OK_CANCEL_OPTION,
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        null,
+                        null);
         if (res == JOptionPane.OK_OPTION) _listener.onAllLocalitiesDeleted();
     }
 
@@ -121,45 +134,42 @@ class Toolbar extends JToolBar {
     private void showHelp() {
         JOptionPane.showOptionDialog(
                 null,
-                "Use the right mouse to move the map,\n"
-                        + "use mouse wheel to zoom.",
+                "Use the right mouse to move the map,\n" + "use mouse wheel to zoom.",
                 "Help window",
                 JOptionPane.DEFAULT_OPTION,
                 JOptionPane.INFORMATION_MESSAGE,
                 null,
                 null,
                 null);
-   }
-    
-    private void initStartButton() { 
-    	 _costButton = new ToolbarButton("$");
-         _costButton.setToolTipText("Shows the total price of the cost");
-         _costButton.addActionListener(
-                 new ActionListener() {
-                     @Override
-                     public void actionPerformed(ActionEvent e) {
-                         showCost();
-                     }
-                 });
-	}
-    
+    }
+
+    private void initStartButton() {
+        _costButton = new ToolbarButton("$");
+        _costButton.setToolTipText("Shows the total price of the cost");
+        _costButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        showCost();
+                    }
+                });
+    }
+
     private void showCost() {
-		DecimalFormat df = new DecimalFormat("$#,##0.000");
-		String formattedCost = df.format(_costMessage);
+        DecimalFormat df = new DecimalFormat("$#,##0.000");
+        String formattedCost = df.format(_costMessage);
         JOptionPane.showOptionDialog(
                 null,
-                "El precio total del costo es:\n"
-                        + formattedCost,
+                "El precio total del costo es:\n" + formattedCost,
                 "Cost window",
                 JOptionPane.DEFAULT_OPTION,
                 JOptionPane.INFORMATION_MESSAGE,
                 null,
                 null,
                 null);
-   }
-    
-    public void setCostMessage(double cost) {
-    	this._costMessage = cost;
     }
 
+    public void setCostMessage(double cost) {
+        this._costMessage = cost;
+    }
 }

@@ -6,7 +6,6 @@ import java.awt.GraphicsEnvironment;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -48,7 +47,6 @@ public class Window implements View, ToolbarListener {
         }
     }
 
-
     public void setVisible(boolean visibility) {
         _frame.setVisible(visibility);
     }
@@ -73,7 +71,6 @@ public class Window implements View, ToolbarListener {
         Coordinate buenosAires = new Coordinate(-34.603889, -58.381389);
         _map = new JMapViewer();
         _map.setDisplayPosition(buenosAires, MAP_ZOOM_LEVEL);
-        
     }
 
     private void setUpToolbar() {
@@ -82,11 +79,10 @@ public class Window implements View, ToolbarListener {
     }
 
     private void drawLineBetweenCoords(Coordinate coord1, Coordinate coord2) {
-    	MapPolygonImpl line = new MapPolygonImpl(coord1, coord2, coord2);
-    	_map.addMapPolygon(line);
+        MapPolygonImpl line = new MapPolygonImpl(coord1, coord2, coord2);
+        _map.addMapPolygon(line);
         _edges.add(line);
     }
-
 
     @Override
     public void onLocalityAdded(String name, String province, double latitude, double longitude) {
@@ -95,20 +91,23 @@ public class Window implements View, ToolbarListener {
     }
 
     @Override
-    public void onConnectionsGenerated(double kilometerCost, double percentageCost, double provinceCost) {
+    public void onConnectionsGenerated(
+            double kilometerCost, double percentageCost, double provinceCost) {
         if (!_localityWasAdded) {
             showNoConnectionsMessage();
             return;
         }
 
-    	_presenter.connectionGenerate(kilometerCost, percentageCost,provinceCost);
-    	double cost = _presenter.getCostMST();
-    	this._toolbar.setCostMessage(cost);
+        _presenter.connectionGenerate(kilometerCost, percentageCost, provinceCost);
+        double cost = _presenter.getCostMST();
+        this._toolbar.setCostMessage(cost);
     }
 
     private void showNoConnectionsMessage() {
-        JOptionPane.showMessageDialog(null,
-                "You need to add at least one locality first.", "Error",
+        JOptionPane.showMessageDialog(
+                null,
+                "You need to add at least one locality first.",
+                "Error",
                 JOptionPane.ERROR_MESSAGE);
     }
 
@@ -123,20 +122,21 @@ public class Window implements View, ToolbarListener {
     }
 
     private void deleteEdges() {
-    	    for (MapPolygonImpl edge : _edges) {
-    	        _map.removeMapPolygon(edge);
-    	    }
-    	    _edges.clear();
-	}
-
-	@Override
-    public void drawEdges(List<Coordinate[]> edges){	
-		deleteEdges();
-		
-    	for (Coordinate[] edge : edges) {
-    	    drawLineBetweenCoords(edge[0], edge[1]);	
-    	}
+        for (MapPolygonImpl edge : _edges) {
+            _map.removeMapPolygon(edge);
+        }
+        _edges.clear();
     }
+
+    @Override
+    public void drawEdges(List<Coordinate[]> edges) {
+        deleteEdges();
+
+        for (Coordinate[] edge : edges) {
+            drawLineBetweenCoords(edge[0], edge[1]);
+        }
+    }
+
     @Override
     public void updateView(String name, double latitude, double longitude) {
         Coordinate coord = new Coordinate(latitude, longitude);

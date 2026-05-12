@@ -62,10 +62,7 @@ public class PrimTest {
 
         WeightedGraph mst = Prim.mst(_graph, _graph.size());
 
-        double total =
-                mst.getWeight(2, 3)
-                        + mst.getWeight(0, 3)
-                        + mst.getWeight(0, 1);
+        double total = mst.getWeight(2, 3) + mst.getWeight(0, 3) + mst.getWeight(0, 1);
 
         assertEquals(19, total, 0.001);
     }
@@ -79,7 +76,7 @@ public class PrimTest {
 
         Prim.mst(disconnected, disconnected.size());
     }
-    
+
     @Test
     public void visualMinimumSpanningTreeTest() {
 
@@ -112,11 +109,7 @@ public class PrimTest {
 
                 if (graph.edgeExists(i, j)) {
 
-                    System.out.println(
-                            i + " -- " + j +
-                            " | weight: " +
-                            graph.getWeight(i, j)
-                    );
+                    System.out.println(i + " -- " + j + " | weight: " + graph.getWeight(i, j));
                 }
             }
         }

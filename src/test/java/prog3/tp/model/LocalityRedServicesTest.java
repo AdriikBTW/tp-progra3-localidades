@@ -3,36 +3,35 @@ package prog3.tp.model;
 import static org.junit.Assert.*;
 
 import java.util.Set;
-
 import org.junit.Before;
 import org.junit.Test;
 
 public class LocalityRedServicesTest {
 
-	    private LocalityRedServices service;
-	
-	    private Locality a;
-	    private Locality b;
-	    private Locality c;
-	
-	    @Before
-	    public void setUp() {
-	
-	        service = new LocalityRedServices();
-	        service.addObserver(locality -> {});
-	
-	        service.setCostConfig(10, 20, 500);
-	
-	        a = new Locality("A", "Buenos Aires", 0, 0);
-	        b = new Locality("B", "Buenos Aires", 0, 1);
-	        c = new Locality("C", "Cordoba", 1, 50);
-	
-	        service.addLocality(a);
-	        service.addLocality(b);
-	        service.addLocality(c);
-	        
-	        service.generateAllEdges();
-	    }
+    private LocalityRedServices service;
+
+    private Locality a;
+    private Locality b;
+    private Locality c;
+
+    @Before
+    public void setUp() {
+
+        service = new LocalityRedServices();
+        service.addObserver(locality -> {});
+
+        service.setCostConfig(10, 20, 500);
+
+        a = new Locality("A", "Buenos Aires", 0, 0);
+        b = new Locality("B", "Buenos Aires", 0, 1);
+        c = new Locality("C", "Cordoba", 1, 50);
+
+        service.addLocality(a);
+        service.addLocality(b);
+        service.addLocality(c);
+
+        service.generateAllEdges();
+    }
 
     @Test
     public void addLocalityTest() {
@@ -103,7 +102,7 @@ public class LocalityRedServicesTest {
 
         assertEquals(3, service.localityCount());
     }
-    
+
     @Test
     public void showGraphBeforeAndAfterPrim() {
 
@@ -134,12 +133,7 @@ public class LocalityRedServicesTest {
     private void printEdge(Locality x, Locality y) {
 
         System.out.println(
-                x.getName()
-                        + " -- "
-                        + y.getName()
-                        + " | cost: "
-                        + service.getCost(x, y)
-        );
+                x.getName() + " -- " + y.getName() + " | cost: " + service.getCost(x, y));
     }
 
     private void printMST(WeightedGraph mst) {
@@ -156,8 +150,7 @@ public class LocalityRedServicesTest {
                                     + " -- "
                                     + get(j).getName()
                                     + " | cost: "
-                                    + mst.getWeight(i, j)
-                    );
+                                    + mst.getWeight(i, j));
                 }
             }
         }
@@ -166,11 +159,14 @@ public class LocalityRedServicesTest {
     private Locality get(int i) {
 
         switch (i) {
-            case 0: return a;
-            case 1: return b;
-            case 2: return c;
-            default: return null;
+            case 0:
+                return a;
+            case 1:
+                return b;
+            case 2:
+                return c;
+            default:
+                return null;
         }
     }
-    
 }

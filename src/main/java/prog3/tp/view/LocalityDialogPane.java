@@ -10,11 +10,31 @@ class LocalityDialogPane extends ToolbarDialogPane {
     private JSpinner _latitudeField;
     private JSpinner _longitudeField;
     private JComboBox<String> _provinceField;
-    private String[] _provinces = {"Buenos Aires", "Catamarca", "Chaco",
-        "Chubut", "Córdoba", "Corrientes", "Entre Ríos", "Formosa", "Jujuy",
-        "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquén",
-        "Río Negro", "Salta", "San Juan", "San Luis", "Santa Cruz",
-        "Santa Fe", "Santiago del Estero", "Tierra del Fuego", "Tucumán"};
+    private String[] _provinces = {
+        "Buenos Aires",
+        "Catamarca",
+        "Chaco",
+        "Chubut",
+        "Córdoba",
+        "Corrientes",
+        "Entre Ríos",
+        "Formosa",
+        "Jujuy",
+        "La Pampa",
+        "La Rioja",
+        "Mendoza",
+        "Misiones",
+        "Neuquén",
+        "Río Negro",
+        "Salta",
+        "San Juan",
+        "San Luis",
+        "Santa Cruz",
+        "Santa Fe",
+        "Santiago del Estero",
+        "Tierra del Fuego",
+        "Tucumán"
+    };
 
     public LocalityDialogPane() {
         super("New locality");

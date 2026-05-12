@@ -13,11 +13,9 @@ public class Main {
                         try {
                             Window window = new Window();
                             window.setVisible(true);
-                            new Presenter(new LocalityRedServices(),
-                                    window);
+                            new Presenter(new LocalityRedServices(), window);
                         } catch (Exception e) {
-                            System.out.println(
-                                    "Error initializing the system: " + e);
+                            System.out.println("Error initializing the system: " + e);
                         }
                     }
                 });

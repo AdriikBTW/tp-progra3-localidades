@@ -17,10 +17,11 @@ abstract class ToolbarDialogPane extends JPanel {
     }
 
     abstract void initComponents();
+
     abstract void addComponents();
 
     public int showDialog() {
-        return JOptionPane.showConfirmDialog(null, this, _title,
-                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        return JOptionPane.showConfirmDialog(
+                null, this, _title, JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
     }
 }
